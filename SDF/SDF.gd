@@ -41,3 +41,9 @@ func get_normal_at(input_point :Vector3) -> Vector3:
 		(value_at_input_point - get_value_at(value_at_input_point + Vector3(0.0, _normal_epsilon, 0.0))) / _normal_epsilon,
 		(value_at_input_point - get_value_at(value_at_input_point + Vector3(0.0, 0.0, _normal_epsilon))) / _normal_epsilon
 	)
+
+
+##SMOOTH BLENDING
+func smoothBlend(d1, d2, k) -> float :
+	var h = clamp(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0);
+	return lerp(d2, d1, h) - k * h * (1.0 - h);

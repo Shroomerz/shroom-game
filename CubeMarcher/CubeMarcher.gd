@@ -28,7 +28,7 @@ func get_mesh() -> ArrayMesh:
 	return surface_tool.commit()
 
 var _treshold
-var _precision :Vector3 = Vector3(0.3, 0.3, 0.3)
+var _precision :Vector3 = Vector3(0.04, 0.04, 0.04)
 var _sdf :SDF
 var _negative_bound :Vector3
 var _positive_bound :Vector3
