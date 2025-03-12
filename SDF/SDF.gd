@@ -37,9 +37,9 @@ var _normal_epsilon = 0.001
 func get_normal_at(input_point :Vector3) -> Vector3:
 	var value_at_input_point = get_value_at(input_point)
 	return Vector3(
-		(value_at_input_point - get_value_at(value_at_input_point + Vector3(_normal_epsilon, 0.0, 0.0))) / _normal_epsilon,
-		(value_at_input_point - get_value_at(value_at_input_point + Vector3(0.0, _normal_epsilon, 0.0))) / _normal_epsilon,
-		(value_at_input_point - get_value_at(value_at_input_point + Vector3(0.0, 0.0, _normal_epsilon))) / _normal_epsilon
+		(get_value_at(input_point + Vector3(_normal_epsilon, 0.0, 0.0)) - value_at_input_point) / _normal_epsilon,
+		(get_value_at(input_point + Vector3(0.0, _normal_epsilon, 0.0)) - value_at_input_point) / _normal_epsilon,
+		( get_value_at(input_point + Vector3(0.0, 0.0, _normal_epsilon)) - value_at_input_point) / _normal_epsilon
 	)
 
 
