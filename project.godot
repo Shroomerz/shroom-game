@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="Shroom Game"
+run/main_scene="uid://dfuijhxr1f3uc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
