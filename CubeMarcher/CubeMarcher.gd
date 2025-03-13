@@ -40,7 +40,6 @@ func get_mesh() -> ArrayMesh:
 	for x in range(0, max_iterations.x + 1):
 		for y in range(0, max_iterations.y + 1):
 			var z = 0
-			#for z in range(0, max_iterations.z + 1):
 			while (z < max_iterations.z + 1):
 				var absolute_cube_position = _vertex_to_absolute(Vector3i(x, y, z))
 				var values_at_corners = _get_values_at_corners(absolute_cube_position)
