@@ -7,7 +7,6 @@ func get_value_at(parameter :float, angle :float) -> Vector3:
 	assert(false, "This is a virtual function, it may not be invoked directly")
 	return Vector3(0.0, 0.0, 0.0)
 
-<<<<<<< HEAD
 func get_face_direction():
 	return false
 
@@ -32,10 +31,3 @@ func _get_bezier(parameter :float):
 		_bezier_buffer = _next_bezier_buffer
 	
 	return _bezier_buffer[0]
-=======
-func get_x(radius :float, angle :float):
-	return radius * cos(angle)
-
-func get_y(radius :float, angle :float):
-	return radius * sin(angle)
->>>>>>> 572dacc (Implemented the parametric mesher)
