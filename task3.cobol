@@ -187,24 +187,28 @@ rectangle system{
     usecase "Rozpoczęcie nowej gry" as UC1
     usecase "Otwarcie menu pauzy" as UC2
     usecase "Zamknięcie menu pauzy" as UC3
-    usecase "Wznowienie rozgrywki" as UC4
+    usecase "Wczytanie rozgrywki" as UC4
+    usecase "Zmiana Ustawień" as UC5
 }
 rectangle aktywna_rozgrywka{
-    usecase "Zbieranie grzyba" as UC5
+    usecase "Zbieranie grzyba" as UC6
     usecase "Użycie mikstury/grzyba" as UC7
     usecase "Wejście do chatki" as UC8
     usecase "Wyjście z chatki" as UC9
+    usecase "poruszanie się po mapie" as UC15
 }
 rectangle alchemia{
     usecase "Przeglądanie katalogu grzybów" as UC10
-        usecase "Warzenie mikstury" as UC6
+    usecase "Określanie gatunków grzybów" as UC13
+    usecase "Warzenie mikstury" as UC14
 }
 
 rectangle walka{
     usecase "Atakowanie przeciwnika" as UC11
     usecase "Pokonanie przeciwnika" as UC12
 }
-actor Gra
+
+
 Gracz --> UC1
 Gracz --> UC2
 Gracz --> UC3
@@ -217,22 +221,60 @@ Gracz --> UC9
 Gracz --> UC10
 Gracz --> UC11
 Gracz --> UC12
-UC1 --> Gra
-UC2 --> Gra
-UC3 --> Gra
-UC4 --> Gra
-UC5 --> Gra
-UC6 --> Gra
-UC7 --> Gra
-UC8 --> Gra
-UC9 --> Gra
-UC10 --> Gra
-UC11 --> Gra
-UC12 --> Gra
-UC12 --> Gra
+Gracz --> UC13
+Gracz --> UC14
+Gracz --> UC15
 @enduml
 
 
+@startuml
+left to right direction
+actor Gracz
 
- usecase "Pokonanie przeciwnika" as UC12
+usecase "Menu" as M
+    usecase "Rozpoczęcie nowej gry" as UC1
+    usecase "Otwarcie menu pauzy" as UC2
+    usecase "Zamknięcie menu pauzy" as UC3
+    usecase "Wznowienie rozgrywki" as UC4
+    usecase "Zmiana ustawień" as UC14
+usecase "eksploracja" as E
+    usecase "Zbieranie grzyba" as UC5
+    usecase "Użycie mikstury/grzyba" as UC7
+    usecase "Wejście do chatki" as UC8
+    usecase "Wyjście z chatki" as UC9
+    usecase "przemieszczanie się po mapie" as UC13
+usecase "alchemia" as A
+    usecase "Przeglądanie katalogu grzybów" as UC10
+    usecase "Warzenie mikstury" as UC6
+    usecase "określanie gatunków grzybów" as UC15    
+usecase "walka" as W
+    usecase "Atakowanie przeciwnika" as UC11
+    usecase "Pokonanie przeciwnika" as UC12
+
+
+Gracz --> M
+M --> UC1
+M --> UC4
+UC4 --> E
+M --> UC14
+UC1 --> E
+E --> UC5
+E --> UC7
+E --> UC8
+E --> W
+E --> UC2
+E --> UC13
+UC2 --> UC3
+UC3 --> E
+UC2 --> M
+UC8 --> A 
+A --> UC9
+A --> UC10
+A --> UC6
+A--> UC15
+
+W --> UC11
+UC11 --> UC12
+@enduml
+
 
