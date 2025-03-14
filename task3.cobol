@@ -11,13 +11,6 @@ Co jeszcze może zawierać scenariusz?
 - odnośnik(i) do konkretnego wymagania
 - odnośnik(i) do innego scenariusza
 - itd.
-Jak to zrobić?
-Polecam poradnik pani Laury Brandenburg jak pisać scenariusze przypadków użycia (czy przypadki
-użycia po prostu):
-https://www.bridging-the-gap.com/what-is-a-use-case/
-Oraz video:
-https://www.youtube.com/watch?v=RHdGn7WMWos
-
 
 Przypadek użycia:
 Opis:
@@ -74,7 +67,7 @@ Warunki wstępne: Gracz posiada co najmniej jedną miksturę lub grzyba w ekwipu
 Scenariusze alternatywne:
 Gracz próbuje użyć mikstury, gdy jej efekt już działa. System wyświetla komunikat „Efekt już aktywny” i nie zużywa mikstury.
 
-Przypadek użycia: Wznowienie stanu rozgrywki
+Przypadek użycia: Wczytanie stanu rozgrywki
 Opis: Gracz powinien móc wrócić do gry po przerwie.
 Aktorzy: Gracz
 Warunki wstępne: Gracz znajduje się w menu głównym i ma zapisany stan gry
@@ -110,14 +103,19 @@ Warunki wstępne: Gracz stoi przy wejściu do chatki
     2. System przełącza widok na wnętrze chatki 
 Scenariusze alternatywne:
 brak
-Przypadek użycia: Wyjście z chatki
-Opis: Gracz powinien móc wyjść z chatki do świata gry.
+
+Przypadek użycia: Wyjście z chatki - nowy dzień
+Opis: Gracz powinien móc wyjść z chatki do świata gry każdego dnia gry
 Aktorzy: Gracz
 Warunki wstępne: Gracz znajduje się w chatce
     1. Gracz naciska przycisk wyjścia 
-    2. System przełącza widok na świat zewnętrzny 
+    2. System generuje nowy świat gry
+    3. System przełącza widok na świat zewnętrzny który się zmienił w stosunku do dnia poprzedniego
+    ...(wiele różnych przypadków użycia może się odbyć w międzyczasie)
+    n. gracz wraca do chatki
 Scenariusze alternatywne:
-Brak
+n.a jeżeli gracz nie wróci do domu zanim zrobi się odpowiednio późno zabije go jakiś straszny potwór
+
 Przypadek użycia: Przemieszczanie się po mapie
 Opis: Gracz powinien móc swobodnie poruszać się po mapie gry.
 Aktorzy: Gracz
@@ -181,22 +179,60 @@ funkcjonalnych sporządzoną w poprzednim ćwiczeniu) na podstawie scenariuszy z
 Do tego celu należy użyć języka UML. Może być jeden ogromniasty diagram dla wszystkich przypadków
 lub też osobne diagramy dla każdego przypadku. Czasami lepiej jest wybrać pierwszą opcję, czasami
 drugą, w zależności, jakie wymagania odnośnie systemu macie.
-Jak to zrobić?
-Zacznijmy od przypomnienia jak za pomocą Zmumifikowanego Języka Modelowania popełnić diagram
-przypadków użycia:
-https://www.youtube.com/watch?v=yFVIBQcEl3w
-W kolejnym kroku należy znaleźć sobie narzędzie do pracy z językiem UML, które będzie nam najlepiej
-"leżeć".
-Genialny serwis guru99 przygotował cały, całkiem fajny "UML Tutorial", który polecam, ale tutaj skupię
-sie tylko na fragmencie, gdzie zgromadzono różne programy do pracy z UML - do wyboru, do koloru,
-co komu odpowiada:
-https://www.guru99.com/best-uml-tools.html
-Jakich narzędzi użyć?
-Online – spoczko jest https://app.diagrams.net/
-Offline – w uczciwej cenie (między Bogiem a prawdą) jest DIA:
-http://dia-installer.de/
-(albo sudo apt install dia)
-Jeśli ktoś z Was zdecyduje się na aplikację DIA, oto video pokazujące jak w niej tworzyć diagramy
-przypadków użycia:
-https://www.youtube.com/watch?v=zU1Tqwt6ios
-...i tym samym mamy zrobioną drugą część ćwiczenia.
+
+@startuml
+left to right direction
+actor Gracz
+rectangle system{
+    usecase "Rozpoczęcie nowej gry" as UC1
+    usecase "Otwarcie menu pauzy" as UC2
+    usecase "Zamknięcie menu pauzy" as UC3
+    usecase "Wznowienie rozgrywki" as UC4
+}
+rectangle aktywna_rozgrywka{
+    usecase "Zbieranie grzyba" as UC5
+    usecase "Użycie mikstury/grzyba" as UC7
+    usecase "Wejście do chatki" as UC8
+    usecase "Wyjście z chatki" as UC9
+}
+rectangle alchemia{
+    usecase "Przeglądanie katalogu grzybów" as UC10
+        usecase "Warzenie mikstury" as UC6
+}
+
+rectangle walka{
+    usecase "Atakowanie przeciwnika" as UC11
+    usecase "Pokonanie przeciwnika" as UC12
+}
+actor Gra
+Gracz --> UC1
+Gracz --> UC2
+Gracz --> UC3
+Gracz --> UC4
+Gracz --> UC5
+Gracz --> UC6
+Gracz --> UC7
+Gracz --> UC8
+Gracz --> UC9
+Gracz --> UC10
+Gracz --> UC11
+Gracz --> UC12
+UC1 --> Gra
+UC2 --> Gra
+UC3 --> Gra
+UC4 --> Gra
+UC5 --> Gra
+UC6 --> Gra
+UC7 --> Gra
+UC8 --> Gra
+UC9 --> Gra
+UC10 --> Gra
+UC11 --> Gra
+UC12 --> Gra
+UC12 --> Gra
+@enduml
+
+
+
+ usecase "Pokonanie przeciwnika" as UC12
+
