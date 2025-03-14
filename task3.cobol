@@ -262,18 +262,21 @@ Warunki wstępne:
 Wyjątki i scenariusze alternatywne:
 
 
-Przypadek użycia: dedukowanie gatunków grzybów przez gracza
-Opis:
+Przypadek użycia: określanie gatunków grzybów przez gracza
+Opis: Gracz powinien móc na podstawie swoich obserwacji określać gatunki grzybów i zapisywać swoje spostrzeżenia w katalogu
 Aktorzy: Gracz
-Warunki wstępne: 
+Warunki wstępne: Gracz znajduje się w menu katalogu
 
-    Gracz otwiera ekwipunek.
-    System wyświetla listę posiadanych mikstur.
-    Gracz wybiera miksturę i potwierdza użycie.
-    System aktywuje efekt mikstury.
-    System usuwa zużytą miksturę z ekwipunku.
+1. Gracz wybiera interesującego go grzyba
+2. Gracz klika na guzik "określ gatunek"
+3. System wyświetla menu określenia gatunku
+4. Gracz wybiera gatunek z listy lub dodaje nową nazwę
+5. System przypisuje gatunek grzybowi
+
 
 Wyjątki i scenariusze alternatywne:
+5.a Gracz dodał nazwę, która już istnieje
+ => System wyświetla informację o błędzie i pozwala graczowi jeszcze raz wybrać nazwę
 
 
       
