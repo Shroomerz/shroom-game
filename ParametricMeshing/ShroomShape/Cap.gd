@@ -1,5 +1,3 @@
 extends ParametricSolid
+## Cap ought to have the attachment point precisely at (0.0, 0.0, 0.0)
 class_name Cap
-
-func get_cap_origin() -> Vector3:
-	return Vector3(0.0, 0.0, 0.0)

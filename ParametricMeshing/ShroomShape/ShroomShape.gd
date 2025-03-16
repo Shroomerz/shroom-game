@@ -31,20 +31,19 @@ func commit():
 	
 	var cap_mesh = ParametricPolarMesher.get_mesh(_cap)
 	var leg_mesh = ParametricPolarMesher.get_mesh(_leg)
-	var cap_to_leg_translation = _leg.get_cap_origin() - _cap.get_cap_origin()
+	var cap_to_leg_translation = _leg.get_cap_origin()
 	var cap_to_leg_rotation = _leg.get_cap_direction()
 	
 	var cap_mesh_instance = MeshInstance3D.new()
 	cap_mesh_instance.name = _cap_mesh_name
 	cap_mesh_instance.mesh = cap_mesh
-	cap_mesh_instance.transform.origin = _cap.get_cap_origin()
 	
 	var leg_mesh_instance = MeshInstance3D.new()
 	leg_mesh_instance.name = _leg_mesh_name
 	leg_mesh_instance.mesh = leg_mesh
 	
 	cap_mesh_instance.position = cap_to_leg_translation
-	#cap_mesh_instance.transform.rotated_local(Vector3(cap_to_leg_rotation.x, 0.0, cap_to_leg_rotation.z), cap_to_leg_rotation.y)
+	cap_mesh_instance.rotate(Vector3(0.0, 1.0, 0.0).cross(cap_to_leg_rotation).normalized(), acos(cap_to_leg_rotation.y))
 	
 	add_child(cap_mesh_instance)
 	add_child(leg_mesh_instance)
