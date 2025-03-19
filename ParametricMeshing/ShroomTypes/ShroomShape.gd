@@ -29,8 +29,8 @@ func commit():
 	if (get_node(_leg_mesh_name) != null):
 		get_node(_leg_mesh_name).free()
 	
-	var cap_mesh = ParametricPolarMesher.get_mesh(_cap)
-	var leg_mesh = ParametricPolarMesher.get_mesh(_leg)
+	var cap_mesh = _cap.get_mesh()
+	var leg_mesh = _leg.get_mesh()
 	var cap_to_leg_translation = _leg.get_cap_origin()
 	var cap_to_leg_rotation = _leg.get_cap_direction()
 	

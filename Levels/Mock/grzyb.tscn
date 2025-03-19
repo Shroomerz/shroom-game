@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfuijhxr1f3uc"]
 
 [ext_resource type="Script" uid="uid://bsv6utl6848fn" path="res://Levels/Mock/grzyb.gd" id="1_aprth"]
-[ext_resource type="Script" uid="uid://cutb1wxt5qft4" path="res://ParametricMeshing/ShroomShape/ShroomShape.gd" id="3_4qdbg"]
+[ext_resource type="Script" uid="uid://cutb1wxt5qft4" path="res://ParametricMeshing/ShroomTypes/ShroomShape.gd" id="3_4qdbg"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_aprth")
