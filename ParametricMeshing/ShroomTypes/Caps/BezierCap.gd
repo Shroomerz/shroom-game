@@ -15,4 +15,5 @@ func get_value_at(parameter :float, angle :float):
 	if (parameter == 0.0):
 		return Vector3(0.0, _bezier_points.back().y, 0.0)
 	var cap_point_rotational = _get_bezier(parameter, _bezier_points)
+	cap_point_rotational.x *= (sin(2.0 * angle) * min(pow(_bezier_points[0].y - cap_point_rotational.length(), 2.0), 0.3) + 1.0)
 	return Vector3(cap_point_rotational.x * cos(angle), cap_point_rotational.y, cap_point_rotational.x * sin(angle))
