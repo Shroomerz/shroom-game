@@ -1,6 +1,8 @@
 extends Cap
 class_name BezierCap
 
+var _bezier_points
+
 func _init(c_seed = null):
 	if (c_seed != null):
 		seed(c_seed)
@@ -12,5 +14,5 @@ func _init(c_seed = null):
 func get_value_at(parameter :float, angle :float):
 	if (parameter == 0.0):
 		return Vector3(0.0, _bezier_points.back().y, 0.0)
-	var cap_point_rotational = _get_bezier(parameter)
+	var cap_point_rotational = _get_bezier(parameter, _bezier_points)
 	return Vector3(cap_point_rotational.x * cos(angle), cap_point_rotational.y, cap_point_rotational.x * sin(angle))

@@ -2,6 +2,7 @@ extends Leg
 class_name BezierLeg
 
 var _height
+var _bezier_points
 
 func get_face_direction():
 	return true
@@ -19,7 +20,7 @@ func _init(c_seed = null):
 	_bezier_points.push_back(Vector3(0.0, height, 0.0))
 
 func get_value_at(parameter :float, angle :float) -> Vector3:
-	return _get_bezier(parameter) + (Vector3(cos(angle), 0.0, sin(angle)) * 0.1)
+	return _get_bezier(parameter, _bezier_points) + (Vector3(cos(angle), 0.0, sin(angle)) * 0.1)
 
 func get_cap_direction():
 	return (_bezier_points[-1] - _bezier_points[-2]).normalized()

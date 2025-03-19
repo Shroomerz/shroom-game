@@ -16,12 +16,14 @@ func _get_x(radius :float, angle :float):
 func _get_y(radius :float, angle :float):
 	return radius * sin(angle)
 
-var _bezier_points
+# Miscellaneous functions
+
 ## Retruns a point at the Bezier curve. The dimensionality of the output depends on the 
 ## type of points in the input
-func _get_bezier(parameter :float):
-	var _bezier_buffer = _bezier_points
-	while (typeof(_bezier_buffer) == typeof(_bezier_points) and _bezier_buffer.size() > 1):
+static func _get_bezier(parameter :float, bezier_points :Array):
+	var _bezier_buffer = bezier_points
+	# "typeof"s are here because an Array that has one element is no array anymore (I guees...)
+	while (typeof(_bezier_buffer) == typeof(bezier_points) and _bezier_buffer.size() > 1):
 		var _next_bezier_buffer = []
 		var _bezier_buffer_iterator = 0
 		while (_bezier_buffer_iterator < _bezier_buffer.size() - 1):
