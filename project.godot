@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="ui"
+config/name="Shroom game"
 run/main_scene="res://Levels/UI/main_ui.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
