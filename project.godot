@@ -29,6 +29,10 @@ window/size/viewport_height=2160
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [gui]
 
 theme/default_theme_scale=3.0
