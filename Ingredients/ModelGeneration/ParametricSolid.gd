@@ -4,7 +4,9 @@ class_name ParametricSolid
 ## gets written to the resultant mesh [br]
 ## * parameter in [0, 1] [br]
 ## * angle in [0, 2π) [br]
-func get_value_at(parameter :float, angle :float) -> Vector3:
+## [br]
+## Underscores so that Godot doesn't whine about these variables beging unused
+func get_value_at(_parameter :float, _angle :float) -> Vector3:
 	assert(false, "This is a virtual function, it may not be invoked directly")
 	return Vector3(0.0, 0.0, 0.0)
 
