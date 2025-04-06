@@ -13,8 +13,8 @@ func _init(min_value: float, max_value: float, min_span: float, max_span: float)
 	self.min_span = min_span
 	self.max_span = max_span
 
-func get_random_distribution() -> ProbabilityDistribution:
-	return ProbabilityDistribution.new(0, 0)
+func get_random_distribution() -> Distribution:
+	return Distribution.new(0, 0)
 
 func set_seed(seed: int):
 	pass

@@ -14,7 +14,7 @@ func test_valid_distributions_and_spans():
 	var sample_count = 100
 	for i in range(0, sample_count):
 		var sample_distribution = distribution_of_distributions.get_random_distribution()
-		assert_true(sample_distribution is ProbabilityDistribution)
+		assert_true(sample_distribution is Distribution)
 		assert_gte(sample_distribution.min_value, distribution_of_distributions.min_value)
 		assert_lte(sample_distribution.max_value, distribution_of_distributions.max_value)
 		assert_lt(sample_distribution.min_value, sample_distribution.max_value)

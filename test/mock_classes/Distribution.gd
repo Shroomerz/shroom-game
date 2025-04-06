@@ -1,6 +1,6 @@
 extends Node
 
-class_name ProbabilityDistribution
+class_name Distribution
 
 var min_value: float
 var max_value: float
