@@ -49,7 +49,7 @@ This document describes the structure and process of ingredient generation. __Be
   - `generate_random_species(seed: int) -> IngredientSpecies`
 
 ### IngredientSpecies
-- **Description**: Class representing a species of ingredients. It provides the functionality of generating a mushroom based on a seed and contains distributions of alchemical properties.
+- **Description**: Class representing a species of ingredients. It provides the functionality of generating a mushroom based on a seed and contains distributions of alchemical properties. It should contain a reference to an IngredientFamily derived object, and an object of ComponentConnectorDistribution.
 - **Methods**:
   - `generate_specimen(seed: int) -> IngredientSpecimen`
 
