@@ -18,7 +18,7 @@ func test_distribution_mean():
 	for i in range(0, sample_count):
 		average += distribution.get_random_value() / sample_count
 
-	var expected_mean = (distribution.min_value + distribution.max_value) / 2
+	var expected_mean = (distribution.get_min() + distribution.get_max()) / 2
 	assert_almost_eq(average, expected_mean, 0.1)
 
 # Test to ensure the generated values are within the specified range
@@ -26,7 +26,7 @@ func test_value_within_range():
 	var sample_count = 100
 	for i in range(0, sample_count):
 		var value = distribution.get_random_value()
-		assert_between(value, distribution.min_value, distribution.max_value)
+		assert_between(value, distribution.get_min(), distribution.get_max())
 
 # Test to ensure the generated values are different
 func test_generated_values_are_different():

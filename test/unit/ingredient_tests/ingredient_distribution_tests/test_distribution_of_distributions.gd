@@ -15,13 +15,13 @@ func test_valid_distributions_and_spans():
 	for i in range(0, sample_count):
 		var sample_distribution = distribution_of_distributions.get_random_distribution()
 		assert_true(sample_distribution is Distribution)
-		assert_gte(sample_distribution.min_value, distribution_of_distributions.min_value)
-		assert_lte(sample_distribution.max_value, distribution_of_distributions.max_value)
-		assert_lt(sample_distribution.min_value, sample_distribution.max_value)
+		assert_gte(sample_distribution._min_value, distribution_of_distributions._min_value)
+		assert_lte(sample_distribution._max_value, distribution_of_distributions._max_value)
+		assert_lt(sample_distribution._min_value, sample_distribution._max_value)
 		
-		var span = sample_distribution.max_value - sample_distribution.min_value
-		assert_gte(span, distribution_of_distributions.min_span)
-		assert_lte(span, distribution_of_distributions.max_span)
+		var span = sample_distribution._max_value - sample_distribution._min_value
+		assert_gte(span, distribution_of_distributions._min_span)
+		assert_lte(span, distribution_of_distributions._max_span)
 
 func test_seed_functionality():
 	var seed = 0
@@ -47,20 +47,20 @@ func test_seed_functionality():
 		assert_ne(first_run_values[i], third_run_values[i], "The generated values should be different for different seeds")
 
 func test_expected_values_match():
-	var sample_count = 100
+	var sample_count = 100000
 	var total_middle_point = 0.0
 	var total_span = 0.0
 
 	for i in range(0, sample_count):
 		var sample_distribution = distribution_of_distributions.get_random_distribution()
-		var middle_point = (sample_distribution.max_value + sample_distribution.min_value) / 2
+		var middle_point = (sample_distribution._max_value + sample_distribution._min_value) / 2
 		total_middle_point += middle_point
-		var span = sample_distribution.max_value - sample_distribution.min_value
+		var span = sample_distribution._max_value - sample_distribution._min_value
 		total_span += span
 
 	var average_middle_point = total_middle_point / sample_count
-	var expected_middle_point = (distribution_of_distributions.min_value + distribution_of_distributions.max_value) / 2
+	var expected_middle_point = (distribution_of_distributions._min_value + distribution_of_distributions._max_value) / 2
 	assert_almost_eq(average_middle_point, expected_middle_point, 0.1)
 
 	var average_span = total_span / sample_count
-	assert_almost_eq(average_span, (distribution_of_distributions.min_span + distribution_of_distributions.max_span) / 2, 0.1)
+	assert_almost_eq(average_span, (distribution_of_distributions._min_span + distribution_of_distributions._max_span) / 2, 0.1)
