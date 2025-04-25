@@ -1,6 +1,6 @@
 extends ParametricSolid
 
-class_name Leg
+class_name Stipe
 
 func get_cap_direction():
 	assert(false, "This is a virtual function, it may not be invoked directly")

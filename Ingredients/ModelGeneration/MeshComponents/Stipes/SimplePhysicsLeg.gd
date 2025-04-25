@@ -1,6 +1,6 @@
-extends Leg
+extends Stipe
 
-class_name SimplePhysicsLeg
+class_name SimplePhysicsStipe
 
 var points
 func stiffness(force :float, bend :float):

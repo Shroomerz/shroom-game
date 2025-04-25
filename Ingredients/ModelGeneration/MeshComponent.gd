@@ -1,5 +1,4 @@
-#Should inherit from Item
-extends Node
+extends ParametricSolid
 
 class_name MeshComponent
 

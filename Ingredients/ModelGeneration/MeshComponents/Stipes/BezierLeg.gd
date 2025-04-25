@@ -1,4 +1,4 @@
-extends Leg
+extends Stipe
 class_name BezierLeg
 
 var _height

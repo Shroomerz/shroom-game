@@ -2,16 +2,14 @@ extends Node
 class_name FamilyRandomizer
 
 var families: Array = []
+var _total_weight: float = 0
 
 func add_family(family: IngredientFamily):
 	families.append(family)
+	_total_weight += family.get_probability_weight()
 
 func generate_random_species(seed: int) -> IngredientSpecies:
-	var total_weight = 0.0
-	for family in families:
-		total_weight += family.get_probability_weight()
-	
-	var random_value = randf() * total_weight
+	var random_value = randf() * _total_weight
 	for family in families:
 		random_value -= family.get_probability_weight()
 		if random_value <= 0:
