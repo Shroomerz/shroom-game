@@ -1,4 +1,4 @@
-extends MeshComponent
+extends Stipe
 
 class_name StraightStipe
 

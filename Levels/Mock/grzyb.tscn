@@ -1,30 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfuijhxr1f3uc"]
+[gd_scene load_steps=4 format=3 uid="uid://dfuijhxr1f3uc"]
 
 [ext_resource type="Script" uid="uid://bsv6utl6848fn" path="res://Levels/Mock/grzyb.gd" id="1_aprth"]
-[ext_resource type="Script" uid="uid://dkiq4jdiktb3v" path="res://ShroomModelGeneration/SpeciesShapes/ShroomShape.gd" id="3_4qdbg"]
+[ext_resource type="Script" uid="uid://dkiq4jdiktb3v" path="res://Ingredients/ModelGeneration/Families/ShroomShape.gd" id="3_4qdbg"]
+
+[sub_resource type="Environment" id="Environment_3fgy1"]
+background_energy_multiplier = 5.23
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 9.2
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_aprth")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.998226, 0.0595329, 0, -0.0595329, 0.998226, 0.0467935, 2.31761, 3.97742)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27591, 1.54161, 0.92611)
-shadow_enabled = true
+transform = Transform3D(1, 0, 0, 0, 0.974181, 0.225767, 0, -0.225767, 0.974181, 0.0890522, 2.77938, 3.83048)
+environment = SubResource("Environment_3fgy1")
+fov = 68.3369
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.78127, 0)
 size = Vector3(7.52051, 1, 8.11426)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0109, -0.0202693, 1.93289)
-light_color = Color(0.964706, 0.654902, 0.282353, 1)
-light_energy = 1.043
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_specular = 0.0
-shadow_enabled = true
 
 [node name="Button" type="Button" parent="."]
 offset_left = 40.0
@@ -46,7 +40,14 @@ transform = Transform3D(1, 0, 0, 0, 0.994852, 0.101334, 0, -0.101334, 0.994852, 
 
 [node name="ShroomShape" type="Node3D" parent="."]
 script = ExtResource("3_4qdbg")
-metadata/_custom_type_script = "uid://cutb1wxt5qft4"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.479458, 0.877565, 0, -0.877565, 0.479458, 0, 0, 0)
+light_color = Color(0.729412, 0.803922, 1, 1)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.232529, -0.972589, 0, 0.972589, -0.232529, 0, 0, 0)
+light_color = Color(1, 0.658824, 0.105882, 1)
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="GenerateAndSaveButton" to="." method="_on_generate_and_save_button_pressed"]

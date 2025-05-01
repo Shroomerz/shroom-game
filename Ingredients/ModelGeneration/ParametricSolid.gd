@@ -16,22 +16,6 @@ func get_value_at(_parameter :float, _angle :float) -> Vector3:
 func get_face_direction():
 	return false
 
-## Retruns a point at the Bezier curve. The dimensionality of the output depends on the 
-## type of points in the input
-static func _get_bezier(parameter :float, bezier_points :Array):
-	var _bezier_buffer = bezier_points
-	# "typeof"s are here because an Array that has one element is no array anymore (I guees...)
-	while (typeof(_bezier_buffer) == typeof(bezier_points) and _bezier_buffer.size() > 1):
-		var _next_bezier_buffer = []
-		var _bezier_buffer_iterator = 0
-		while (_bezier_buffer_iterator < _bezier_buffer.size() - 1):
-			_next_bezier_buffer.push_back(parameter * _bezier_buffer[_bezier_buffer_iterator] + (1 - parameter) * _bezier_buffer[_bezier_buffer_iterator + 1])
-			_bezier_buffer_iterator += 1
-		
-		_bezier_buffer = _next_bezier_buffer
-	
-	return _bezier_buffer[0]
-
 func _get_precision():
 	return 20
 

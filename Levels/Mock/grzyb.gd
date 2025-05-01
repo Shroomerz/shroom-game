@@ -8,8 +8,8 @@ func _on_button_button_down() -> void:
 	#_new_mesh = MeshInstance3D.new()
 	var shroom_shape_reference = get_node("ShroomShape")
 	print(shroom_shape_reference.get_script())
-	shroom_shape_reference.set_cap(BezierCap.new())
-	get_node("ShroomShape").set_leg(BezierLeg.new())
+	#shroom_shape_reference.set_cap(BezierCap.new())
+	#get_node("ShroomShape").set_leg(BezierLeg.new())
 	var time_beginning = Time.get_unix_time_from_system()
 	get_node("ShroomShape").commit()
 	#_new_mesh.mesh = marcher.get_mesh()
@@ -28,6 +28,10 @@ func _on_generate_and_save_button_pressed() -> void:
 	pass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var model = BezierStipe.new()
+	var mesh =  model.generate_mesh({"length": 5.0, "thickness": 0.2, "max incline": 1.0, "number of segments": 2}, 0)
+	add_child(mesh)
+	
 	#marcher = CubeMarcher.new()
 	#marcher.set_precision(Vector3(0.04,0.04,0.04))
 	#marcher.set_SDF(specific_shroom.new(Vector3(0.19,0.4,0), 0.2, Vector2(1.77,1.63), Vector2(0.02,-0.3),Vector3(0.11,0,0), Vector3(0.24,0.22,0.0) ,Vector3(0.16,0.09,0.14),Vector4(0.1, 0.1, 0.1, 0.1), Vector3(0.05,0,0)))
