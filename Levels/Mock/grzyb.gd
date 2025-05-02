@@ -28,9 +28,19 @@ func _on_generate_and_save_button_pressed() -> void:
 	pass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var model = BezierStipe.new()
-	var mesh =  model.generate_mesh({"length": 5.0, "thickness": 0.2, "max incline": 1.0, "number of segments": 2}, 0)
-	add_child(mesh)
+	#var cap = BezierStipe.new()
+	#var model = cap.generate_mesh({"length": 5.0, "thickness": 0.2, "max incline": 1.0, "number of segments": 5}, 1)
+	
+	var cap = ExponentialCap.new()
+	var model = cap.generate_mesh({"thickness": 0.4, "radius": 1.4, "exponent": 0.4, "height": 0.5}, 0)
+	
+	#var material = StripesMaterial.new()
+	#model.material_override = material.generate_material({"base color": Color(0.2, 0.3, 0.1), "stripe color": Color(0.4, 0.7, 0.2), "number of stripes": 3, "blend": 0.3}, 0)
+	
+	var material = SpeclesMaterial.new()
+	model.material_override = material.generate_material({"base color": Color(0.8, 0.05, 0.1), "specle color": Color(1.0, 0.95, 0.9), "number of specles": 12, "max specle diameter": 0.3, "min specle diameter": 0.05, "steepness": 0.7}, Time.get_ticks_msec())
+	
+	add_child(model)
 	
 	#marcher = CubeMarcher.new()
 	#marcher.set_precision(Vector3(0.04,0.04,0.04))

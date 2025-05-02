@@ -24,6 +24,18 @@ func _get_precision():
 func _get_parameter_to_angle_precision_ratio():
 	return 1.0
 
+## Overwrite this function to specify the way your mesh is mapped to the texture. This function returns a pair of
+## the (new parameter, new angle) in polar coordinate system, namely [0, 1.0] x [0, 2π]
+func texture_map(_parameter: float, _angle: float) -> Vector2:
+	push_warning("This function should be overwriten")
+	return Vector2(_parameter, _angle)
+	
+func _internal_texture_map(_parameter: float, _angle: float) -> Vector2:
+	var new_coordinates = texture_map(_parameter, _angle)
+	_parameter =new_coordinates[0]
+	_angle = new_coordinates[1]
+	return Vector2(0.5, 0.5) - _parameter * Vector2(cos(_angle), sin(_angle)) / 2.0
+
 ## A function that renders a parametrically defined solid to a mesh. The mesh must be defined as a function from
 ## a circle in polar coordinates (namely, from [0, 1] x [0, 2π) ), to R^3. See [annotation ParametricSolid][br][br]
 ##
@@ -45,6 +57,7 @@ func get_mesh() -> ArrayMesh:
 	surface_constructor.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
 	# Creating the array of verticies, later we connect them using their indicies
+	surface_constructor.set_uv(_internal_texture_map(0.0, 0.0))
 	surface_constructor.add_vertex(get_value_at(0.0, 0))
 	
 	var angle_iterator = 0
@@ -52,10 +65,12 @@ func get_mesh() -> ArrayMesh:
 	while parameter_iterator < parameter_precision:
 		angle_iterator = 0
 		while angle_iterator < angle_precision:
+			surface_constructor.set_uv(_internal_texture_map(parameter_iterator * parameter_increment, angle_iterator * angle_increment))
 			surface_constructor.add_vertex(get_value_at(parameter_iterator * parameter_increment, angle_iterator * angle_increment))
 			angle_iterator += 1
 		parameter_iterator += 1
 
+	surface_constructor.set_uv(_internal_texture_map(1.0, 0.0))
 	surface_constructor.add_vertex(get_value_at(1.0, 0.0))
 		
 	# Now the whole array of verticies is finished, we wish to connect the verticies using their indicies

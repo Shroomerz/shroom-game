@@ -42,12 +42,19 @@ transform = Transform3D(1, 0, 0, 0, 0.994852, 0.101334, 0, -0.101334, 0.994852, 
 script = ExtResource("3_4qdbg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.479458, 0.877565, 0, -0.877565, 0.479458, 0, 0, 0)
-light_color = Color(0.729412, 0.803922, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 0.952624, 0.304149, 0, -0.304149, 0.952624, 0, 0, 0)
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.232529, -0.972589, 0, 0.972589, -0.232529, 0, 0, 0)
-light_color = Color(1, 0.658824, 0.105882, 1)
+transform = Transform3D(0.869038, 0.355368, 0.344219, 0.253813, -0.91745, 0.306373, 0.424679, -0.178882, -0.887496, 0, 0, 0)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.40543)
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.553347, -0.0824392, -0.828861, 0.0424676, 0.991004, -0.126917, 0.831867, -0.105429, -0.544868, 0, 0, 0)
+
+[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.0253395, 0, 0.999679, 0, 1, 0, -0.999679, 0, 0.0253395, 0, 0, 0)
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="GenerateAndSaveButton" to="." method="_on_generate_and_save_button_pressed"]
