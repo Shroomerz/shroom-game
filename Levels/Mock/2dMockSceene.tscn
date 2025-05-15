@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bpv8mixdegwdi"]
 
-[ext_resource type="Script" uid="uid://cllgnx13a3dmo" path="res://Levels/Mock/2d_mock_sceene.gd" id="1_xpsvo"]
+[ext_resource type="Script" path="res://Levels/Mock/2d_mock_sceene.gd" id="1_xpsvo"]
 
 [node name="2dMockSceene" type="Control"]
 layout_mode = 3

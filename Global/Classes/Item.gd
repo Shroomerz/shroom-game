@@ -28,5 +28,5 @@ func create_inventory_entity():
 	if(type == "2d"):
 		blank = load("res://assets/icon.svg")
 	else:
-		blank = load("res://Levels/Mock/grzyb.tscn")
+		blank = load("res://Levels/Mock/2dMockSceene.tscn")
 	return blank

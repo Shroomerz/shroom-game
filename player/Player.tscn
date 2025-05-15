@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://cw20crexjd36y" path="res://player/player.gd" id="1_wnvi2"]
 [ext_resource type="Texture2D" uid="uid://6dhqmotekuh8" path="res://player/assety_typu_kradzione/PlayerSprite02.png" id="2_83hs8"]
 [ext_resource type="PackedScene" uid="uid://b8lt8bwi6vwma" path="res://state_machine/StateMachine.tscn" id="3_x8kxw"]
-[ext_resource type="Script" uid="uid://cmf5m2lis5jlw" path="res://player/states/player_idle_state.gd" id="4_83hs8"]
-[ext_resource type="Script" uid="uid://duqmrqx2ipe3f" path="res://player/states/player_move_state.gd" id="5_x8kxw"]
-[ext_resource type="Script" uid="uid://loekdmbr8rlf" path="res://player/player_move_component.gd" id="6_aqcbf"]
-[ext_resource type="Script" uid="uid://cus542hdpsbk4" path="res://player/states/player_attack_state.gd" id="6_gskgj"]
+[ext_resource type="Script" uid="uid://cmf5m2lis5jlw" path="res://player/states/idle_state.gd" id="4_83hs8"]
+[ext_resource type="Script" uid="uid://duqmrqx2ipe3f" path="res://player/states/move_state.gd" id="5_x8kxw"]
+[ext_resource type="Script" path="res://player/player_move_component.gd" id="6_aqcbf"]
+[ext_resource type="Script" path="res://player/states/player_attack_state.gd" id="6_gskgj"]
 [ext_resource type="PackedScene" uid="uid://ydna05wj5bdn" path="res://general/hit_box/HitBox.tscn" id="8_mhpjh"]
-[ext_resource type="Script" uid="uid://conoh8rtxb4ft" path="res://player/interactions.gd" id="9_5qrx2"]
+[ext_resource type="Script" path="res://player/interactions.gd" id="9_5qrx2"]
 [ext_resource type="PackedScene" uid="uid://cwmgufs80ll6f" path="res://general/hurt_box/HurtBox.tscn" id="9_ndjxb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
@@ -220,17 +220,12 @@ libraries = {
 [node name="StateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("3_x8kxw")]
 starting_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "attack_state")]
+[node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("4_83hs8")
-move_state = NodePath("../MoveState")
-attack_state = NodePath("../AttackState")
 animation_name = "idle"
 
-[node name="MoveState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "attack_state")]
+[node name="MoveState" type="Node" parent="StateMachine"]
 script = ExtResource("5_x8kxw")
-idle_state = NodePath("../IdleState")
-attack_state = NodePath("../AttackState")
-move_speed = 100
 animation_name = "walk"
 
 [node name="AttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "move_state", "hit_box")]
