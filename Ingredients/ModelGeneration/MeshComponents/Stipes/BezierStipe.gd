@@ -33,10 +33,10 @@ static func get_default() -> Dictionary:
 
 static func get_default_distribution_of_distributions() -> Dictionary:
 	return {
-		argument_segment_length: DistributionOfDistributions.new(0.2, 2, 0.1, 0.4),
-		argument_thickness: DistributionOfDistributions.new(0.05, 0.3, 0.05, 0.25),
+		argument_segment_length: DistributionOfDistributions.new(0.2, 0.7, 0.1, 0.4),
+		argument_thickness: DistributionOfDistributions.new(0.05, 0.8, 0.05, 0.24),
 		argument_max_incline: DistributionOfDistributions.new(0.0, 1.0, 0.1, 0.11),
-		argument_number_of_segments: DistributionOfDistributions.new(2.0, 11.0, 1.0, 8.0),
+		argument_number_of_segments: DistributionOfDistributions.new(2.0, 6.0, 1.0, 3.0),
 	}
 
 func generate_mesh(_parameters: Dictionary, _seed: int) -> MeshInstance3D:
@@ -67,7 +67,8 @@ func generate_mesh(_parameters: Dictionary, _seed: int) -> MeshInstance3D:
 	return result
 
 func get_cap_direction():
-	return _vector_sub_sums[-1] - _vector_sub_sums[-2]
+	return (_vector_sub_sums[-1] - _vector_sub_sums[-2]) * 0.5 + Vector3(0.0, 1.0, 0.0) * 0.5
+	#return Vector3(1.0, 1.0, 1.0)
 	
 func get_cap_origin():
 	return _vector_sub_sums[-1]

@@ -40,7 +40,7 @@ static func get_default_distribution_of_distributions() -> Dictionary:
 	return {
 		argument_thickness: DistributionOfDistributions.new(0.05, 0.5, 0.07, 0.1),
 		argument_radius: DistributionOfDistributions.new(0.1, 3, 0.05, 0.1),
-		argument_exponent: DistributionOfDistributions.new(0.05, 3.0, 0.1, 0.3),
+		argument_exponent: DistributionOfDistributions.new(0.05, 6.0, 0.1, 0.3),
 		argument_height: DistributionOfDistributions.new(0.5, 6.0, 0.3, 1.0),
 	}
 
@@ -67,9 +67,11 @@ func get_value_at(_parameter :float, _angle :float) -> Vector3:
 	result.z = effective_radius * sin(_angle)
 	
 	if bottom:
-		result.y *= (1 - effective_parameter) * (-_offset)
+		#result.y *= (1 - effective_parameter) * (-_offset)
+		#result.y *= (1 - effective_parameter) * _thickness
+		result.y = 0
 	
-	result.y += _offset
+	#result.y += _offset
 	
 	return result
 

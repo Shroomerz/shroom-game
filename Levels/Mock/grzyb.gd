@@ -57,9 +57,19 @@ func _ready() -> void:
 		var family = ChaliceFamily.new()
 		var species = family.generate_species(j)
 		
-		for i in range(1, 10):
+		for i in range(2):
 			var specimen = species.generate_specimen(i)
-			specimen.get_node(^"model").set_position(Vector3(i * 10, 0.0, j * 10))
+			specimen.get_node(^"model 0").set_position(Vector3(i * 10, 0.0, j * 10))
+			add_child(specimen)
+	
+	for j in range(1, 10):
+		var family = CapNStipeFamily.new()
+		var species = family.generate_species(100 + j)
+		
+		for i in range(2, 5):
+			var specimen = species.generate_specimen(100 + i)
+			specimen.get_node(^"model 0").set_position(specimen.get_node(^"model 0").get_position() + Vector3(i * 10, 0.0, j * 10))
+			specimen.get_node(^"model 1").set_position(specimen.get_node(^"model 1").get_position() + Vector3(i * 10, 0.0, j * 10))
 			add_child(specimen)
 
 	print_tree_pretty()
