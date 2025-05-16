@@ -129,6 +129,8 @@ Klasa której obiekt trzymany jest w GameState. Przetrzymuje obecnie wygenerowan
 Zwraca losowy gatunek grzyba w zależności od biomu oraz pozycji w świecie.
 * `generate_new_species(biome: Biome, current_species_count: int)`
 Generuje nowy gatuenk grzyba dla biomu, tego ile gatunków już wygenerowano
+#### Specimen
+Scena która reprezentuje jednego grzyba. Dziedziczy po Item'ie. W swoim drzewku ma swój model, kamerę do oglądania go oraz źródło światła więc można go wsadzać jako dziecko SubViewport'a i wyświetlać na planszy 2D.
 ## Uwagi
 ### Wykorzystanie pary `Vector2`, `Biome` oraz seed'a rozgrywki do losowej generacji
 Jednym z wymagań naszej gry jest to, żeby dla jednego seed'a rozgrywki, generowana była ta sama rozgrywka. Dlatego do generacji bytów istniejących na planszy wykorzystujemy pozycję w której mają zostać wygenerowane i seeda obecnej rozgrywki. Gdybyśmy wykorzystali prostsze własności, takie jak czas generacji etc. do losowania to jego wynik zależałby od czasu generacji chunka, co nie spełaniałoby wymagań.

@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 var face_direction = "down"
+var health:int = 100
 
 @onready var animation = $AnimationPlayer
 @onready var sprite = $Sprite2D
@@ -49,5 +50,6 @@ func update_animation(name: String) -> void:
 	
 
 func take_damage(damage: int) -> void:
+	health -= damage
 	print("damage has been taken: &d" %damage)
 	pass
