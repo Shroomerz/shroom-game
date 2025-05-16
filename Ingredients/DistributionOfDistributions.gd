@@ -26,6 +26,16 @@ func get_random_distribution() -> Distribution:
 	var mean = _randomizer.randf_range(_min_value + half_span, _max_value - half_span)
 	return Distribution.new(mean - half_span, mean + half_span)
 
+static func randomize_over_dictionary(dictionary: Dictionary, seed: int) -> Dictionary:
+	var result = {}
+	var i = 0
+	for key in dictionary.keys():
+		dictionary[key].set_seed(i + seed)
+		result[key] = dictionary[key].get_random_distribution()
+		i += 1
+	
+	return result
+
 func get_min_value():
 	return _min_value
 

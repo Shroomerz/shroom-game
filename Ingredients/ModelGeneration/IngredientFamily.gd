@@ -9,3 +9,7 @@ func generate_species(seed: int) -> IngredientSpecies:
 func get_probability_weight() -> float:
 	assert(false, "Override this method")
 	return 0
+
+func generate_model(distributions: Dictionary, _seed: int) -> MeshInstance3D:
+	assert(false, "Override this method")
+	return MeshInstance3D.new()

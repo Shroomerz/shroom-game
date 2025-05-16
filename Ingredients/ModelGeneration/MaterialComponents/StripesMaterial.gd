@@ -2,9 +2,33 @@ extends MaterialComponent
 
 class_name StripesMaterial
 
+static func get_default() -> Dictionary:
+	return {
+		"base color red": 0.2,
+		"base color green": 0.5,
+		"base color blue": 0.55,
+		"stripe color red": 0.95,
+		"stripe color green": 0.93,
+		"stripe color blue": 0.9,
+		"number of stripes": 6,
+		"blend": 2.0,
+	}
+
+static func get_default_distribution_of_distributions() -> Dictionary:
+	return {
+		"base color red": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"base color green": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"base color blue": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"stripe color red": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"stripe color green": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"stripe color blue": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"number of stripes": DistributionOfDistributions.new(2, 15, 0, 3),
+		"blend": DistributionOfDistributions.new(0.2, 2.0, 0.1, 0.2),
+	}
+
 static func generate_material(_parameters: Dictionary, _seed: int) -> Material:
-	var base_color = _parameters["base color"]
-	var stripe_color = _parameters["stripe color"]
+	var base_color = Color(_parameters["base color red"], _parameters["base color green"], _parameters["base color blue"])
+	var stripe_color = Color(_parameters["stripe color red"], _parameters["stripe color green"], _parameters["stripe color blue"])
 	var number_of_stripes = _parameters["number of stripes"]
 	var blend = _parameters["blend"]
 	

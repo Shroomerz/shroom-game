@@ -1,8 +1,13 @@
 extends Node
 class_name IngredientSpecies
 
-var component_connector: ComponentConnector = null
-var distributions = {}
+var family: IngredientFamily = null
+var parameters_dictionary = {}
 
 func generate_specimen(seed: int) -> IngredientSpecimen:
-	return IngredientSpecimen.new()
+	# TODO implement alchemy system here
+	var specimen = IngredientSpecimen.new()
+	var model = family.generate_model(parameters_dictionary, seed)
+	model.name = "model"
+	specimen.add_child(model)
+	return specimen

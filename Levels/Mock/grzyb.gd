@@ -5,21 +5,22 @@ var marcher
 var _new_mesh
 
 func _on_button_button_down() -> void:
-	#_new_mesh = MeshInstance3D.new()
-	var shroom_shape_reference = get_node("ShroomShape")
-	print(shroom_shape_reference.get_script())
-	#shroom_shape_reference.set_cap(BezierCap.new())
-	#get_node("ShroomShape").set_leg(BezierLeg.new())
-	var time_beginning = Time.get_unix_time_from_system()
-	get_node("ShroomShape").commit()
-	#_new_mesh.mesh = marcher.get_mesh()
-	#_new_mesh.mesh = ParametricPolarMesher.get_mesh(SampleSolid.new(), 0.01, 30)
-	#_new_mesh.mesh = ParametricPolarMesher.get_mesh(FunnyCap.new(), 0.1, 15)
-	#_new_mesh.mesh = ParametricPolarMesher.get_mesh(BezierLeg.new(), 0.01, 6)
-	var time_end = Time.get_unix_time_from_system()
-	print("Grib henerathion time: ", (time_end - time_beginning) * 1000.0, "ms")
-	#_new_mesh.material_override = load("res://new_standard_material_3d.tres")
-	#add_child(_new_mesh)
+	pass
+		#_new_mesh = MeshInstance3D.new()
+	#var shroom_shape_reference = get_node("ShroomShape")
+	#print(shroom_shape_reference.get_script())
+		#shroom_shape_reference.set_cap(BezierCap.new())
+		#get_node("ShroomShape").set_leg(BezierLeg.new())
+	#var time_beginning = Time.get_unix_time_from_system()
+	#get_node("ShroomShape").commit()
+		#_new_mesh.mesh = marcher.get_mesh()
+		#_new_mesh.mesh = ParametricPolarMesher.get_mesh(SampleSolid.new(), 0.01, 30)
+		#_new_mesh.mesh = ParametricPolarMesher.get_mesh(FunnyCap.new(), 0.1, 15)
+		#_new_mesh.mesh = ParametricPolarMesher.get_mesh(BezierLeg.new(), 0.01, 6)
+	#var time_end = Time.get_unix_time_from_system()
+	#print("Grib henerathion time: ", (time_end - time_beginning) * 1000.0, "ms")
+		#_new_mesh.material_override = load("res://new_standard_material_3d.tres")
+		#add_child(_new_mesh)
 	
 
 func _on_generate_and_save_button_pressed() -> void:
@@ -38,9 +39,9 @@ func _ready() -> void:
 	#var flat = FlatCap.new()
 	#var model = flat.generate_mesh(FlatCap.get_default(), 3)
 	
-	var cap = ExponentialCap.new()
+	#var cap = ExponentialCap.new()
 	#var model = cap.generate_mesh({"thickness": 0.4, "radius": 1.4, "exponent": 0.4, "height": 0.5}, 0)
-	var model = cap.generate_mesh(ExponentialCap.get_default(), 5)
+	#var model = cap.generate_mesh(ExponentialCap.get_default(), 5)
 	
 	#var chalice = Chalice.new()
 	#var model = chalice.generate_mesh(chalice.get_default(), 4)
@@ -48,9 +49,22 @@ func _ready() -> void:
 	#var material = StripesMaterial.new()
 	#model.material_override = material.generate_material({"base color": Color(0.2, 0.3, 0.1), "stripe color": Color(0.4, 0.7, 0.2), "number of stripes": 3, "blend": 0.3}, 0)
 	
-	model.material_override = SpeclesMaterial.generate_material({"base color": Color(0.8, 0.05, 0.1), "specle color": Color(1.0, 0.95, 0.9), "number of specles": 12, "max specle diameter": 0.3, "min specle diameter": 0.05, "steepness": 0.7}, Time.get_ticks_msec())
+	#model.material_override = SpeclesMaterial.generate_material({"base color": Color(0.8, 0.05, 0.1), "specle color": Color(1.0, 0.95, 0.9), "number of specles": 12, "max specle diameter": 0.3, "min specle diameter": 0.05, "steepness": 0.7}, Time.get_ticks_msec())
+	#model.material_override = SpeclesMaterial.generate_material(SpeclesMaterial.get_default(), 5)
+	#model.material_override = StripesMaterial.generate_material(StripesMaterial.get_default(), 5)
 	
-	add_child(model)
+	for j in range(1, 10):
+		var family = ChaliceFamily.new()
+		var species = family.generate_species(j)
+		
+		for i in range(1, 10):
+			var specimen = species.generate_specimen(i)
+			specimen.get_node(^"model").set_position(Vector3(i * 10, 0.0, j * 10))
+			add_child(specimen)
+
+	print_tree_pretty()
+	
+	#add_child(model)
 	
 	#marcher = CubeMarcher.new()
 	#marcher.set_precision(Vector3(0.04,0.04,0.04))

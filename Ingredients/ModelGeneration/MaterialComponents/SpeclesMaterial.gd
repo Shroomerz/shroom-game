@@ -2,12 +2,39 @@ extends MaterialComponent
 
 class_name SpeclesMaterial
 
+static func get_default() -> Dictionary:
+	return {
+		"base color red": 0.9,
+		"base color green": 0.1,
+		"base color blue": 0.05,
+		"specle color red": 0.95,
+		"specle color green": 0.93,
+		"specle color blue": 0.9,
+		"number of specles": 20,
+		"min specle diameter": 0.05,
+		"steepness": 1.1,
+	}
+
+static func get_default_distribution_of_distributions() -> Dictionary:
+	return {
+		"base color red": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"base color green": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"base color blue": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"specle color red": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"specle color green": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"specle color blue": DistributionOfDistributions.new(0.0, 1.0, 0.05, 0.1),
+		"number of specles": DistributionOfDistributions.new(2, 20, 0, 5),
+		"min specle diameter": DistributionOfDistributions.new(0.05, 0.4, 0.01, 0.05),
+		"steepness": DistributionOfDistributions.new(1.1, 10.0, 0.1, 0.2),
+	}
+
 static func generate_material(_parameters: Dictionary, _seed: int) -> Material:
-	var base_color: Color = _parameters["base color"]
-	var specle_color: Color = _parameters["specle color"]
+	var base_color: Color = Color(_parameters["base color red"], _parameters["base color green"], _parameters["base color blue"])
+	var specle_color: Color = Color(_parameters["specle color red"], _parameters["specle color green"], _parameters["specle color blue"])
 	var number_of_specles: int = _parameters["number of specles"]
-	var max_specle_diameter: float = _parameters["max specle diameter"]
 	var min_specle_diameter: float = _parameters["min specle diameter"]
+	#var max_specle_diameter: float = min_specle_diameter + _parameters["specle difference"]
+	var max_specle_diameter: float = min_specle_diameter + 0.1
 	var steepness: float = _parameters["steepness"]
 	
 	var main_texture = Image.create(texture_resolution, texture_resolution, false, Image.FORMAT_RGB8)
@@ -39,7 +66,7 @@ static func generate_material(_parameters: Dictionary, _seed: int) -> Material:
 					continue
 				
 				var radius = sqrt(x * x + y * y)
-				var weight = pow(1.1- pow(radius / float(specle_radius), 2.0), 0.2)
+				var weight = pow(steepness - pow(radius / float(specle_radius), 2.0), 0.2)
 				main_texture.set_pixel(absolute_x, absolute_y, main_texture.get_pixel(absolute_x, absolute_y) * (1.0 - weight) + specle_color * weight)
 	
 	var texture = ImageTexture.create_from_image(main_texture)

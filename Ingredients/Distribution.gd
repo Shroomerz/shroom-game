@@ -38,3 +38,13 @@ func get_random_value() -> float:
 		result = _randomizer.randfn(_mean, _deviation)
 	
 	return result
+
+static func randomize_over_dictionary(dictionary: Dictionary, seed: int) -> Dictionary:
+	var result = {}
+	var i = 0
+	for key in dictionary.keys():
+		dictionary[key].set_seed(i + seed)
+		result[key] = dictionary[key].get_random_value()
+		i += 1
+	
+	return result
