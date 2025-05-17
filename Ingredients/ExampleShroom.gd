@@ -1,4 +1,4 @@
-extends Item
+extends IngredientSpecimen
 
 class_name ExampleShroom
 
