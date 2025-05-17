@@ -14,7 +14,7 @@ static func calculate_points(stats: Dictionary):
 	return max(0, stats["speed"] * -20 + stats["damage"] * -5 + stats["health"] * -0.5 + stats["max health"] / -3.0 + stats["attack speed"] * -20)
 
 static func stats_to_strings(stats: Dictionary):
-	return [["speed", stats["speed"]], ["damage", stats["damage"]], ["health", stats["health"]], ["max health", stats["max health"]], ["attack speed", stats["attack speed"]]]
+	return [["speed", str(stats["speed"])], ["damage", str(stats["damage"])], ["health", str(stats["health"])], ["max health", str(stats["max health"])], ["attack speed", str(stats["attack speed"])]]
 
 static func apply_stats(stats: Dictionary):
 	GameState.speed = min(0.1, stats["speed"])

@@ -17,7 +17,7 @@ func generate_specimen(seed: int) -> IngredientSpecimen:
 	
 	specimen.alchemy_stats = Distribution.randomize_over_dictionary(alchemy_distribution, seed)
 	
-	var description
+	var description = ""
 	for pair in AlchemyStats.stats_to_strings(specimen.alchemy_stats):
 		description += pair[0] + " = " + pair[1] + "\n"
 	
