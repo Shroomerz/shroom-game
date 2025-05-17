@@ -66,7 +66,7 @@ func get_face_direction():
 	return false
 
 func _get_precision():
-	return 20
+	return 10
 
 func _get_parameter_to_angle_precision_ratio():
 	return 1.0

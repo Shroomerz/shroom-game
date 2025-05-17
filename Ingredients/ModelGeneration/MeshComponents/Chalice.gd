@@ -41,10 +41,10 @@ static func get_default() -> Dictionary:
 
 static func get_default_distribution_of_distributions() -> Dictionary:
 	return {
-		argument_height: DistributionOfDistributions.new(0.5, 5, 0.1, 1),
+		argument_height: DistributionOfDistributions.new(2, 5, 0.1, 1),
 		argument_stipe_height: DistributionOfDistributions.new(0.1, 3, 0.05, 0.5),
-		argument_radius: DistributionOfDistributions.new(2, 5, 0.1, 1),
-		argument_stipe_thickness: DistributionOfDistributions.new(0.05, 2, 0.05, 0.2),
+		argument_radius: DistributionOfDistributions.new(1, 3, 0.1, 1),
+		argument_stipe_thickness: DistributionOfDistributions.new(0.05, 0.5, 0.05, 0.2),
 		argument_steepness: DistributionOfDistributions.new(0.01, 2, 0.05, 0.2)
 	}
 
@@ -70,7 +70,7 @@ func get_face_direction():
 	return true
 
 func _get_precision():
-	return 20
+	return 8
 
 func _get_parameter_to_angle_precision_ratio():
 	return 1.0

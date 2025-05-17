@@ -24,7 +24,7 @@ func get_probability_weight() -> float:
 #       [a dictionary of pairs "[parameter name]": [Distribution object]
 
 func generate_species(seed: int) -> IngredientSpecies:
-	var result = IngredientSpecies.new()
+	var result = IngredientSpecies.new(seed)
 	
 	var random = RandomNumberGenerator.new()
 	random.set_seed(seed)

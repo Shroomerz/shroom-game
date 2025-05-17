@@ -14,6 +14,17 @@ var max_health:float = 100
 var points:int = 0
 var attack_speed:float = 2.0
 
+func take_damage(damage: float):
+	health -= damage
+
+func apply_max_health_change(change: float):
+	max_health -= change
+	if health > max_health:
+		take_damage(health - max_health)
+
+func give_points(points: int):
+	points += points
+
 func reset(game_seed: int) -> void:
 	_day_counter = 0
 	_game_seed = game_seed

@@ -104,7 +104,8 @@ func get_face_direction():
 	return false
 
 func _get_precision():
-	return _number_of_segments * 10
+	#return _number_of_segments * 2
+	return 8
 
 func _get_parameter_to_angle_precision_ratio():
 	return _number_of_segments * 2.0
