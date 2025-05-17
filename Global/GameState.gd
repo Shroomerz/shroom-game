@@ -10,7 +10,7 @@ var _inventory:Inventory = Inventory.new()
 var speed:float = 1.0
 var damage:float = 10
 var health:float = 100
-var maxhealth:float = 100
+var max_health:float = 100
 var points:int = 0
 var attack_speed:float = 2.0
 

@@ -23,6 +23,7 @@ boot_splash/minimum_display_time=1200
 GlobalSettings="*res://Global/GlobalSettings.gd"
 GameState="*res://Global/GameState.gd"
 GlobalFamiliesRandomizer="*res://Ingredients/FamilyRandomizer.gd"
+GlobalSpeciesRegistry="*res://Ingredients/SpeciesRegistry.gd"
 
 [display]
 
