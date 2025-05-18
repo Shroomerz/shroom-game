@@ -22,7 +22,8 @@ func _init() -> void:
 	GameState.next_day()
 
 func _ready() -> void:
-	GlobalSpeciesRegistry.add_species()
+	for i in range(1, 10):
+		GlobalSpeciesRegistry.add_species()
 	_regen_area_shape.scale = Vector2(Chunk.SIZE, Chunk.SIZE)
 	_regen_area.position = Vector2(0.5, 0.5) * Chunk.SIZE * _tile_size
 	_populate_chunks_around(Vector2i(0, 0))

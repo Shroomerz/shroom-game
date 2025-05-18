@@ -14,6 +14,8 @@ var max_health:float = 100
 var points:int = 0
 var attack_speed:float = 2.0
 
+var hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje = 0
+
 func take_damage(damage: float):
 	health -= damage
 

@@ -16,12 +16,12 @@ var quantity:int
 func show_item(item:Item, _quantity:int):
 	data = item
 	quantity = _quantity
-	var temp = item.create_inventory_entity()
+
 	if(item.type == "2d"):
-		icon.texture = temp
+		icon.texture = item.get_texture()
 		viewport_container.visible = false
 	else:
-		viewport.add_child(temp.instantiate())
+		viewport.add_child(item)
 		icon.visible = false
 	if(quantity >= 2):
 		text.visible = true
@@ -29,11 +29,11 @@ func show_item(item:Item, _quantity:int):
 		text.add_text(str(quantity))	
 	else:
 		text.visible = false
+		
 func _ready():
 	button.connect("pressed", self._on_pressed)
 	button.connect("focus_entered", self._on_focus_entered)
 	button.connect("focus_exited", self._on_focus_exited)
-
 
 func _on_pressed():
 	emit_signal("slot_clicked", data)

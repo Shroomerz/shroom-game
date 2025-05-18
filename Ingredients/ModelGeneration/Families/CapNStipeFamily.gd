@@ -95,6 +95,7 @@ func generate_model(parameters_dictionary: Dictionary, _seed: int) -> Array[Mesh
 	var stipe_direction = parameters_dictionary["stipe mesh"]["reference"].get_cap_direction()
 	var rotation_axis = Vector3(0.0, 1.0, 0.0).cross(stipe_direction).normalized()
 	var angle = Vector3(0.0, 1.0, 0.0).signed_angle_to(stipe_direction, rotation_axis)
-	result[0].rotate(rotation_axis, angle)
+	if rotation_axis.length_squared() != 0:
+		result[0].rotate(rotation_axis, angle)
 	
 	return result

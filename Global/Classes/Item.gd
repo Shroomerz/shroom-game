@@ -8,9 +8,6 @@ var type:String = "2d" #2d or 3d
 var usable:bool = false
 var stackable:bool = false
 
-func _init():
-	name = "Unknown"
-
 func is_stackable()->bool:
 	return stackable
 
@@ -19,11 +16,3 @@ func is_usable():
 
 func use():
 	return -1
-
-func create_inventory_entity():
-	var blank
-	if(type == "2d"):
-		blank = load("res://assets/icon.svg")
-	else:
-		blank = load("res://Levels/Mock/2dMockSceene.tscn")
-	return blank

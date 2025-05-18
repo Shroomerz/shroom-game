@@ -29,4 +29,6 @@ func _get_random_species(seed: int = 0) -> IngredientSpecies:
 ## Returns a random shroom
 ## If seed == 0 then it's all random, if seed != 0 then that seed will be used for the generation
 func generate_shroom(seed: int = 0) -> IngredientSpecimen:
-	return _get_random_species(seed).generate_specimen(hash(seed))
+	if seed == 0:
+		seed = randi()
+	return _get_random_species(seed).generate_specimen(seed)

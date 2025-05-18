@@ -14,12 +14,18 @@ static func calculate_points(stats: Dictionary):
 	return max(0, stats["speed"] * -20 + stats["damage"] * -5 + stats["health"] * -0.5 + stats["max health"] / -3.0 + stats["attack speed"] * -20)
 
 static func stats_to_strings(stats: Dictionary):
-	return [["speed", str(stats["speed"])], ["damage", str(stats["damage"])], ["health", str(stats["health"])], ["max health", str(stats["max health"])], ["attack speed", str(stats["attack speed"])]]
+	return [
+		["speed", str(stats["speed"])], 
+		["damage", str(stats["damage"])], 
+		["health", str(stats["health"])], 
+		["max health", str(stats["max health"])], 
+		["attack speed", str(stats["attack speed"])], 
+		["points", str(AlchemyStats.calculate_points(stats))]]
 
 static func apply_stats(stats: Dictionary):
 	GameState.speed = min(0.1, stats["speed"])
 	GameState.damage = min(0.5, stats["damage"])
-	GameState.take_damage(stats["health"])
+	GameState.take_damage(-stats["health"])
 	GameState.apply_max_health_change(stats["max health"])
 	GameState.attack_speed = min(0.05, stats["attack speed"])
 	GameState.give_points(calculate_points(stats))
