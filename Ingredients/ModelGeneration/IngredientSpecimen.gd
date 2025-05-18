@@ -15,9 +15,8 @@ func _init():
 	
 	add_child(camera)
 	add_child(light)
-
-	itemID = "Kategoria :) " + str(GameState.hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje)
-	GameState.hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje += 1
+	
+	itemID = "Shroom"
 
 func use():
 	AlchemyStats.apply_stats(alchemy_stats)

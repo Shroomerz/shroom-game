@@ -76,6 +76,8 @@ func _on_shroom_pickup(body: Node2D, shroom_scene) -> void:
 	#print("bbbbbbbbbbbbbbbbbbbbbbbbbbb ", shroom_scene, " and ", body)
 	if body == _player:
 		#print("duuuuuuuupaaaa")
+		
+		shroom_scene._subviewport.remove_child(shroom_scene.shroom)
 		GameState.get_inventory().add_item(shroom_scene.shroom, 1)
 		_items_layer.remove_child.call_deferred(shroom_scene)
 

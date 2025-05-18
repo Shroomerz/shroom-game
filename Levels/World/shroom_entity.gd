@@ -8,6 +8,7 @@ var shroom: IngredientSpecimen
 
 func setup(shroom_: IngredientSpecimen, pickup_cb) -> void:
 	shroom = shroom_
+	shroom.name = "shroom"
 	_pickup_cb = pickup_cb
 
 func _ready() -> void:
