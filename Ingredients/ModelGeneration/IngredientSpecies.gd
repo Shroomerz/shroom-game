@@ -13,6 +13,7 @@ func generate_specimen(seed: int) -> IngredientSpecimen:
 	var models = family.generate_model(parameters_dictionary, seed)
 	for i in range(models.size()):
 		models[i].name = "model " + str(i)
+		models[i].position += Vector3(specimen.new_x, 0.0, 0.0)
 		specimen.add_child(models[i])
 	
 	specimen.alchemy_stats = Distribution.randomize_over_dictionary(alchemy_distribution, seed)

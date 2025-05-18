@@ -37,10 +37,6 @@ func clear()->void:
 	data.clear()
 
 func add_item(item:Item, quantity:int)->void:
-	if item.itemID == "Shroom":
-		item.itemID += str(GameState.hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje)
-		GameState.hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje += 1
-	
 	var pos:int = get_id_by_id(item.itemID)
 	if(pos != -1):
 		data[pos].quantity += quantity
