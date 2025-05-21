@@ -41,8 +41,8 @@ func apply_max_health_change(change: float):
 	if health > max_health:
 		take_damage(health - max_health)
 
-func give_points(points: int):
-	points += points
+func give_points(change_in_points: int):
+	points += change_in_points
 
 func reset(game_seed: int) -> void:
 	_day_counter = 0
