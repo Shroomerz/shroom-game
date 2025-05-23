@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://cwxxu8a2vk1hw"]
 
 [ext_resource type="Script" uid="uid://cv1v4atff4kye" path="res://Levels/World/world.gd" id="1_tipu6"]
-[ext_resource type="Texture2D" uid="uid://cljjjldja7is1" path="res://Levels/World/dumb_tileset.png" id="2_44qql"]
+[ext_resource type="Texture2D" uid="uid://xkucpgf5ciwo" path="res://Levels/World/tileset.png" id="2_4teai"]
 [ext_resource type="Texture2D" uid="uid://cys1w6gyi2m2r" path="res://assets/Vegetation.png" id="3_4teai"]
 [ext_resource type="PackedScene" uid="uid://vl86lr0m2jow" path="res://player/Player.tscn" id="3_beiy3"]
 [ext_resource type="PackedScene" uid="uid://0lraxp3egji5" path="res://enemies/enemy/Enemy.tscn" id="4_vlb38"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3owj8"]
-texture = ExtResource("2_44qql")
+texture = ExtResource("2_4teai")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -48,6 +48,7 @@ script = ExtResource("1_tipu6")
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 z_index = -1
+texture_filter = 1
 tile_set = SubResource("TileSet_qxxuw")
 
 [node name="ItemsLayer" type="Node2D" parent="."]
