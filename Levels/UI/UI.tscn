@@ -1,3 +1,5 @@
+[gd_scene load_steps=21 format=3 uid="uid://5g0ck17xo6y0"]
+
 [ext_resource type="Script" uid="uid://m0h24osf5ffj" path="res://Levels/UI/main_UI.gd" id="1_xiihc"]
 [ext_resource type="Texture2D" uid="uid://bv58m5ar8agh6" path="res://assets/ilovethisbg.png" id="2_tg0pe"]
 [ext_resource type="Script" uid="uid://bqn40ilhg4uy1" path="res://Levels/UI/FULLmenu.gd" id="3_eauwy"]
@@ -18,11 +20,12 @@
 [ext_resource type="Script" uid="uid://cutrt7nnkppm2" path="res://Levels/UI/item_list.gd" id="13_2kj1t"]
 [ext_resource type="PackedScene" uid="uid://wus4yuy14a8w" path="res://Levels/UI/death.tscn" id="16_i6dmj"]
 [ext_resource type="PackedScene" uid="uid://cjfgbteopd460" path="res://Levels/UI/finished_demo.tscn" id="17_2np4p"]
+[ext_resource type="PackedScene" uid="uid://cchv2iln0qw3h" path="res://Levels/UI/overdose.tscn" id="18_m21ei"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fletv"]
 shader = ExtResource("3_m21ei")
 shader_parameter/time = 0.0
 shader_parameter/acidity = 0.0
-[ext_resource type="PackedScene" uid="uid://cchv2iln0qw3h" path="res://Levels/UI/overdose.tscn" id="18_m21ei"]
 
 [sub_resource type="Theme" id="Theme_k0a0m"]
 

@@ -39,8 +39,6 @@ func _ready():
 	menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	visible = false
-	
-	GameState.overdosed.connect(_on_overdosed)
 
 func _on_quit():
 	get_tree().quit()
@@ -55,6 +53,3 @@ func _on_menu():
 	GameState.hard_reset()
 	get_tree().reload_current_scene()
 	#get_tree().paused = false;
-
-func _on_overdosed():
-	show_finish()

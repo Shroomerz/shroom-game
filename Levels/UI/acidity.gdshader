@@ -32,13 +32,13 @@ vec3 scramble(float f, float s) {
 
 void fragment() {
 	float effective_time = time / 100.0;
-	
+
 	float acidity_inflation = acidity;
 	//float acidity_colors = pow(abs(sin(PI * acidity / 2.0)), 3.5);
 	float acidity_colors = acidity;
 	float acidity_burn = 1.0 - acidity;
-	
-	
+
+
 	// INFLATION
 #define inflation_density 10.0
 #define delta 0.01
@@ -51,15 +51,15 @@ void fragment() {
 	float inflation_y_delta = noise(inflation_density * (SCREEN_UV + effective_time * vec2(10.0, 5.0) + delta_y) + vec2(110.0, 120.0));
 	float derivative_x = (inflation_origin - inflation_x_delta) / delta;
 	float derivative_y = (inflation_origin - inflation_y_delta) / delta;
-	
+
 	vec4 inflated_color = texture(TEXTURE, SCREEN_UV + vec2(derivative_x, derivative_y) * inflation_strength);
-	
+
 	// FUNNY COLOR BUISNESS
 	vec3 m_1 = scramble(noise(SCREEN_UV + effective_time * vec2(1.0, 0.5)), noise(SCREEN_UV + effective_time * vec2(0.8, 0.3) + vec2(10.0, 20.0)));
 	vec3 m_2 = scramble(noise(SCREEN_UV + effective_time * vec2(1.0, 0.5) + vec2(30.0, 40.0)), noise(SCREEN_UV + effective_time * vec2(0.8, 0.3) + vec2(10.0, 20.0)));
 	vec3 m_3 = scramble(noise(SCREEN_UV + effective_time * vec2(1.0, 0.5) + vec2(30.0, 40.0)), noise(SCREEN_UV + effective_time * vec2(0.8, 0.3) + vec2(50.0, 60.0)));
 	vec3 shifted_color = mat3(m_1, m_2, m_3) * inflated_color.xyz;
-	
+
 	vec3 unburnt_color = mix(COLOR.xyz, shifted_color, acidity_colors);
 
 	// BURN
@@ -75,11 +75,11 @@ void fragment() {
 	burn_value *= noise(burn_density * (SCREEN_UV + effective_time * vec2(-burn_speed)) + vec2(150.0, 160.0));
 	burn_value = clamp(burn_value - acidity_burn, 0.0, 1.0);
 	burn_value /= acidity_burn;
-	
+
 	//float burned = 1.0 - pow(min(cos(PI * burn_value / 2.0 ), 1.0 - abs(burn_value)), 4.0);
 	float burned = min(burn_value * burn_value * 9.0, 1.0);
 	float burning = min(pow((burn_value * 1.7), 5), 1.0);
-	
+
 	// hwb to rgb in reference to Alvy Ray Smith & Eric Ray Lyons 1996 "HWB—A More Intuitive Hue-Based Color Model"
 	hue *= 3.2;
 	vec3 burning_color;
@@ -87,11 +87,11 @@ void fragment() {
 	float blackness = burning - burned;
 	float v, n, f; // The paper authors didn't care to say what thease actually mean so I guess, these are just "magic" value xP
 	int i;
-	
+
 	v = 1.0 - blackness;
 	i = int(floor(hue));
 	f = fract(hue);
-	if ((i & 1) == 1) 
+	if ((i & 1) == 1)
 		f = 1.0 - f;
 	n = whiteness + f * (v - whiteness);
 	switch (i) {
@@ -115,11 +115,11 @@ void fragment() {
 			burning_color = vec3(v, whiteness, n);
 		break;
 	}
-	
+
 	vec3 burned_color = mix(unburnt_color, burning_color, burned);
-	
+
 	COLOR.xyz = burned_color;
-	
+
 	//float a = COLOR.x + COLOR.y + COLOR.z;
 	//COLOR.xyz = (COLOR.xyz / a) * mat3(scramble(1.0, 0.0), scramble(0.0, 0.0), scramble(0.0, 1.0)) * a;
 }

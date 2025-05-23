@@ -1,5 +1,5 @@
+[gd_scene load_steps=4 format=3 uid="uid://1c4r8skvjxy1"]
 
-[gd_scene load_steps=4 format=3 uid="uid://cchv2iln0qw3h"]
 [ext_resource type="Script" uid="uid://cbhcnp4ns8g6u" path="res://Levels/UI/overdose.gd" id="1_qjbks"]
 [ext_resource type="Texture2D" uid="uid://d1t7r8t15pq0k" path="res://assets/shroomy.jpg" id="2_6sody"]
 [ext_resource type="FontFile" uid="uid://v5wm4xvtuo2a" path="res://assets/Simpsonfont.ttf" id="2_g3ypx"]
