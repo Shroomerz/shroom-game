@@ -8,7 +8,7 @@ extends Node2D
 @onready var _enemies_layer := $EnemiesLayer
 @onready var _regen_area := $RegenArea
 @onready var _regen_area_shape := $RegenArea/Shape
-@onready var _tile_size: int = $Tiles.tile_set.tile_size.x
+@onready var _tile_size: int = $Tiles.tile_set.tile_size.x * $"Tiles".scale.x
 @onready var _tile_scale_factor: int = $Tiles.scale.x
 var _threads: Array[Thread] = []
 var timer := 5.0

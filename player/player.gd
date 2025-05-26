@@ -9,7 +9,7 @@ var invulnerable_time := 0.1
 @onready var anim = $AnimationPlayer
 @onready var state_machine = $StateMachine
 @onready var move_component = $MoveComponent
-@onready var _tile_size: int = $"../Tiles".tile_set.tile_size.x
+@onready var _tile_size: int = $"../Tiles".tile_set.tile_size.x * $"../Tiles".scale.x
 
 func _ready() -> void:
 	state_machine.init(self, move_component)
