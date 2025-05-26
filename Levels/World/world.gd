@@ -9,6 +9,7 @@ extends Node2D
 @onready var _regen_area := $RegenArea
 @onready var _regen_area_shape := $RegenArea/Shape
 @onready var _tile_size: int = $Tiles.tile_set.tile_size.x
+@onready var _tile_scale_factor: int = $Tiles.scale.x
 var _threads: Array[Thread] = []
 var timer := 5.0
 
@@ -85,7 +86,8 @@ func _populate_chunk_at(super_coords: Vector2i) -> void:
 			var rel_coords := Vector2i(dx, dy)
 			var coords := corner_coords + rel_coords
 			var cell := chunk.get_cell(rel_coords)
-			var tile_coords := Vector2i(2.0 * (cell.biomic_xy.clampf(-0.999, 0.999) + Vector2(1, 1)))
+			var tile_coords := _tile_scale_factor * Vector2i(2.0 * (cell.biomic_xy.clampf(-0.999, 0.999) + Vector2(1, 1)))
+			tile_coords += Vector2i(rel_coords.x % _tile_scale_factor, rel_coords.y % _tile_scale_factor)
 			if cell.has_shroom:
 				var shroom = GlobalSpeciesRegistry.generate_shroom()
 				#var shroom = ExampleShroom.new()
