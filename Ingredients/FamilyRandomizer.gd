@@ -22,8 +22,8 @@ func _init():
 		#family_path = directory.get_next()
 	
 	# Sometimes you try do things the "right" way... and then it comes back to bite you in the bottom :>
-	families.push_back(ChaliceFamily.new())
-	families.push_back(CapNStipeFamily.new())
+	add_family(ChaliceFamily.new())
+	add_family(CapNStipeFamily.new())
 
 func add_family(family: IngredientFamily):
 	families.append(family)
