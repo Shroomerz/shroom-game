@@ -105,6 +105,7 @@ layout_mode = 2
 script = ExtResource("6_sh7ty")
 
 [node name="Menu" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -148,7 +149,7 @@ theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="Menu/MenuPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Hello Gamer,"
+text = "Welcome Shroomer,"
 
 [node name="game" type="Button" parent="Menu/MenuPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -206,7 +207,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Credits" type="PanelContainer" parent="Menu"]
-visible = false
 custom_minimum_size = Vector2(2800, 1800)
 layout_mode = 1
 anchors_preset = 8
@@ -245,34 +245,42 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "CREDITS"
 
-[node name="ResPanel" type="Panel" parent="Menu/Credits/MarginContainer/VBox"]
+[node name="ResPanel" type="PanelContainer" parent="Menu/Credits/MarginContainer/VBox"]
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_k0a0m")
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu/Credits/MarginContainer/VBox/ResPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 30
+layout_mode = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
 
 [node name="Label" type="Label" parent="Menu/Credits/MarginContainer/VBox/ResPanel/MarginContainer"]
+custom_minimum_size = Vector2(500, 600)
 layout_mode = 2
-text = "WRITE CREDITS HERE LATER "
+text = "Masflam
+World Generation & Procedural Design
 
-[node name="Back" type="Button" parent="Menu/Credits"]
+Pabianp  
+Character Design & Combat Systems
+
+piotr-3-janiszewki
+Procedural Mushroom Technology
+
+StKucharski
+User Interface Design"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Back" type="Button" parent="Menu/Credits/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 text = "Back"
 
 [node name="exit_confirm" type="GridContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(1600, 600)
 layout_mode = 1
 anchors_preset = 8
@@ -324,6 +332,7 @@ text = "No
 "
 
 [node name="Pause" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(1200, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -331,10 +340,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -1413.0
-offset_top = -980.0
-offset_right = 1411.0
-offset_bottom = 844.0
+offset_left = -600.0
+offset_top = -680.0
+offset_right = 600.0
+offset_bottom = 307.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_camxr")
@@ -384,46 +393,52 @@ layout_mode = 2
 size_flags_vertical = 8
 text = "Back"
 
-[node name="Help" type="PanelContainer" parent="Pause"]
+[node name="Help" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(2800, 1800)
 layout_mode = 2
+offset_left = 519.0
+offset_top = 112.0
+offset_right = 3319.0
+offset_bottom = 1912.0
 script = ExtResource("7_camxr")
 
-[node name="MarginContainer" type="MarginContainer" parent="Pause/Help"]
+[node name="MarginContainer" type="MarginContainer" parent="Help"]
 layout_mode = 2
 theme_override_constants/margin_left = 220
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 220
 theme_override_constants/margin_bottom = 80
 
-[node name="VBox" type="VBoxContainer" parent="Pause/Help/MarginContainer"]
+[node name="VBox" type="VBoxContainer" parent="Help/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MarginContainer" type="MarginContainer" parent="Pause/Help/MarginContainer/VBox"]
+[node name="MarginContainer" type="MarginContainer" parent="Help/MarginContainer/VBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 100
 
-[node name="Label" type="Label" parent="Pause/Help/MarginContainer/VBox/MarginContainer"]
+[node name="Label" type="Label" parent="Help/MarginContainer/VBox/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "HELP"
 
-[node name="ResPanel" type="Panel" parent="Pause/Help/MarginContainer/VBox"]
+[node name="ResPanel" type="PanelContainer" parent="Help/MarginContainer/VBox"]
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_k0a0m")
 
-[node name="Label" type="Label" parent="Pause/Help/MarginContainer/VBox/ResPanel"]
-layout_mode = 0
-offset_right = 2246.0
-offset_bottom = 1091.0
+[node name="MarginContainer" type="MarginContainer" parent="Help/MarginContainer/VBox/ResPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Help/MarginContainer/VBox/ResPanel/MarginContainer"]
+custom_minimum_size = Vector2(300, 600)
+layout_mode = 2
 text = "Movement
-    Use W / A / S / D or the Arrow Keys to move your character.
+    Use W / A / S / D or the Arrow Keys to move your character
 
 Inventory
     Press Tab to open or close your inventory.
@@ -431,10 +446,11 @@ Inventory
 Combat
     Press Spacebar or Left Mouse Button to perform an attack.
  
+To complete the demo play until the timer in top left corner runs out 
 "
 autowrap_mode = 3
 
-[node name="Back" type="Button" parent="Pause/Help"]
+[node name="Back" type="Button" parent="Help/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
@@ -822,14 +838,14 @@ visible = false
 [connection signal="pressed" from="Menu/MenuPanel/MarginContainer/VBoxContainer/creds" to="." method="_on_creds_pressed"]
 [connection signal="pressed" from="Menu/MenuPanel/MarginContainer/VBoxContainer/ausgang" to="." method="_on_ausgang_pressed"]
 [connection signal="pressed" from="Menu/logo_buttons/PanelContainer/logo_button" to="." method="_on_logo_button_pressed"]
-[connection signal="pressed" from="Menu/Credits/Back" to="." method="_on_back_credits_pressed"]
+[connection signal="pressed" from="Menu/Credits/MarginContainer/VBox/Back" to="." method="_on_back_credits_pressed"]
 [connection signal="pressed" from="exit_confirm/ColorRect/MarginContainer/VBoxContainer/yes" to="." method="_on_yes_pressed"]
 [connection signal="pressed" from="exit_confirm/ColorRect/MarginContainer/VBoxContainer/no" to="." method="_on_no_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBox/MainMenu" to="." method="_on_pause_main_menu_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBox/Settings" to="." method="_on_pause_settings_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBox/Help" to="." method="_on_pause_help_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBox/Back" to="." method="_on_pause_back_pressed"]
-[connection signal="pressed" from="Pause/Help/Back" to="." method="_on_pause_help_back_pressed"]
+[connection signal="pressed" from="Help/MarginContainer/VBox/Back" to="." method="_on_pause_help_back_pressed"]
 [connection signal="item_selected" from="Settings/MarginContainer/VBox/ResPanel/MarginContainer/ResolutionOption" to="." method="_on_resolution_option_item_selected"]
 [connection signal="pressed" from="Settings/MarginContainer/VBox/FullscreenPanel/MarginContainer/FullscreenCheck" to="." method="_on_fullscreen_check_pressed"]
 [connection signal="pressed" from="Settings/MarginContainer/VBox/BorderPanel/MarginContainer/BorderCheck" to="." method="_on_border_check_pressed"]

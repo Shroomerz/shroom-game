@@ -31,7 +31,7 @@ extends Control
 
 #credits node
 @onready var credits = $Menu/Credits
-@onready var credit_back = $Menu/Credits/Back
+@onready var credit_back = $Menu/Credits/MarginContainer/VBox/Back
 
 #world node
 @onready var world = $World
@@ -43,8 +43,8 @@ extends Control
 @onready var pause = $Pause
 @onready var pauseBack = $Pause/MarginContainer/VBox/Back
 @onready var pauseMenu = $Pause/MarginContainer/VBox/MainMenu
-@onready var pauseHelp = $Pause/Help
-@onready var pauseHelpBack = $Pause/Help/Back
+@onready var pauseHelp = $Help
+@onready var pauseHelpBack = $Help/MarginContainer/VBox/Back
 
 #Clock
 @onready var clock = $World/LeftTopDisplayers/SunClock
@@ -106,7 +106,7 @@ func _input(event):
 	elif(event.is_action_pressed("ui_cancel") && inv.visible):
 		toggleInv()
 		toggleWorldPause()
-	elif(event.is_action_pressed("ui_cancel") && world.visible && !pause.visible && !settings.visible):
+	elif(event.is_action_pressed("ui_cancel") && world.visible && !pause.visible && !settings.visible && !pauseHelp.visible):
 		togglePause()
 		toggleClockPause()
 		toggleWorldPause()
@@ -187,6 +187,7 @@ func toggleClockPause():
 	
 func togglePauseHelp():
 	pauseHelp.visible = !pauseHelp.visible
+	pause.visible = !pause.visible
 	await get_tree().process_frame
 	if pauseHelp.visible:
 		pauseHelpBack.grab_focus()
