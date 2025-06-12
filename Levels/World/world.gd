@@ -88,21 +88,21 @@ func _populate_chunk_at(super_coords: Vector2i) -> void:
 			var cell := chunk.get_cell(rel_coords)
 			var tile_coords := _tile_scale_factor * Vector2i(2.0 * (cell.biomic_xy.clampf(-0.999, 0.999) + Vector2(1, 1)))
 			tile_coords += Vector2i(rel_coords.x % _tile_scale_factor, rel_coords.y % _tile_scale_factor)
-			if cell.has_shroom:
-				var shroom = GlobalSpeciesRegistry.generate_shroom()
-				#var shroom = ExampleShroom.new()
-				var shroom_scene = preload("res://Levels/World/shroom_entity.tscn").instantiate()
-				shroom_scene.setup(shroom, _on_shroom_pickup.bind(shroom_scene))
-				shroom_scene.position = coords * _tile_size
-				_items_layer.call_thread_safe("add_child", shroom_scene)
-			if cell.has_goblin:
-				var enemy_scene = preload("res://enemies/enemy/Enemy.tscn").instantiate()
-				enemy_scene.position = coords * _tile_size
-				_enemies_layer.call_thread_safe("add_child", enemy_scene)
 			if cell.has_tree:
 				_tiles.call_thread_safe("set_cell", coords, 1, Vector2i(0, 2))
 			else:
 				_tiles.call_thread_safe("set_cell", coords, 0, tile_coords)
+				if cell.has_shroom:
+					var shroom = GlobalSpeciesRegistry.generate_shroom()
+					#var shroom = ExampleShroom.new()
+					var shroom_scene = preload("res://Levels/World/shroom_entity.tscn").instantiate()
+					shroom_scene.setup(shroom, _on_shroom_pickup.bind(shroom_scene))
+					shroom_scene.position = coords * _tile_size
+					_items_layer.call_thread_safe("add_child", shroom_scene)
+				if cell.has_goblin:
+					var enemy_scene = preload("res://enemies/enemy/Enemy.tscn").instantiate()
+					enemy_scene.position = coords * _tile_size
+					_enemies_layer.call_thread_safe("add_child", enemy_scene)
 
 func _on_shroom_pickup(body: Node2D, shroom_scene) -> void:
 	#print("bbbbbbbbbbbbbbbbbbbbbbbbbbb ", shroom_scene, " and ", body)
