@@ -53,4 +53,27 @@ Built with **Godot 4.4** (Forward Plus renderer). Key technical aspects:
 
 ## 📜 License
 
-All rights reserved.
+Copyright (c) 2025 Shroomerz. All rights reserved, some hallucinated.
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of mycological accuracy,
+fitness for foraging purposes, or non-infringement of fungal intellectual
+property rights.
+
+The authors shall not be held responsible for any spontaneous urges to forage
+in nearby forests, philosophical conversations with woodland creatures, or
+the sudden conviction that your houseplants are trying to communicate with you
+after extended play sessions.
+
+No actual mushrooms were harmed in the making of this game. The mushrooms
+depicted are entirely procedurally generated and any resemblance to real fungi,
+living, dead, or transcendental, is purely coincidental. If a mushroom in this
+game tells you to eat it, please remember it is a video game and not a
+certified mycologist.
+
+Side effects of playing may include: enhanced appreciation for biodiversity,
+irrational attachment to pixelated fungi, and an inexplicable desire to
+pronounce "Psilocybe" correctly at dinner parties.
+
+Do not redistribute without express written permission from the authors or
+at least three out of five mushroom elders from the Council of the Eternal Spore.
