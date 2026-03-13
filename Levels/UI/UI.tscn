@@ -388,9 +388,79 @@ layout_mode = 2
 size_flags_vertical = 8
 text = "Help"
 
+[node name="SaveGame" type="Button" parent="Pause/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Save Game"
+
+[node name="LoadGame" type="Button" parent="Pause/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Load Game"
+
 [node name="Back" type="Button" parent="Pause/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 8
+text = "Back"
+
+[node name="SaveLoadPanel" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(1600, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -800.0
+offset_top = -300.0
+offset_right = 800.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SaveLoadPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 40
+
+[node name="VBox" type="VBoxContainer" parent="SaveLoadPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="SaveLoadPanel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SAVE GAME"
+
+[node name="HBox" type="HBoxContainer" parent="SaveLoadPanel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="Slot1" type="Button" parent="SaveLoadPanel/MarginContainer/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Slot 1"
+
+[node name="Slot2" type="Button" parent="SaveLoadPanel/MarginContainer/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Slot 2"
+
+[node name="Slot3" type="Button" parent="SaveLoadPanel/MarginContainer/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Slot 3"
+
+[node name="BackButton" type="Button" parent="SaveLoadPanel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Back"
 
 [node name="Help" type="PanelContainer" parent="."]
@@ -791,9 +861,19 @@ layout_mode = 2
 text = "ale jajo"
 fit_content = true
 
-[node name="Button" type="Button" parent="Inventory/item_description/vbox"]
+[node name="ButtonBox" type="HBoxContainer" parent="Inventory/item_description/vbox"]
 layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button" type="Button" parent="Inventory/item_description/vbox/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "USE"
+
+[node name="DropButton" type="Button" parent="Inventory/item_description/vbox/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "DROP"
 
 [node name="ListingPanel" type="PanelContainer" parent="Inventory"]
 custom_minimum_size = Vector2(1450, 1800)
@@ -856,4 +936,11 @@ visible = false
 [connection signal="pressed" from="Settings/MarginContainer/VBox/HBoxContainer/MarginContainer/Apply" to="." method="_on_apply_pressed"]
 [connection signal="pressed" from="exit_settings_confirm/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/yes" to="." method="_on_yes_exitSettings_pressed"]
 [connection signal="pressed" from="exit_settings_confirm/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/no" to="." method="_on_no_Settings_pressed"]
-[connection signal="pressed" from="Inventory/item_description/vbox/Button" to="Inventory" method="_on_use"]
+[connection signal="pressed" from="Pause/MarginContainer/VBox/SaveGame" to="." method="_on_pause_save_pressed"]
+[connection signal="pressed" from="Pause/MarginContainer/VBox/LoadGame" to="." method="_on_pause_load_pressed"]
+[connection signal="pressed" from="SaveLoadPanel/MarginContainer/VBox/HBox/Slot1" to="." method="_on_saveload_slot" binds= [1]]
+[connection signal="pressed" from="SaveLoadPanel/MarginContainer/VBox/HBox/Slot2" to="." method="_on_saveload_slot" binds= [2]]
+[connection signal="pressed" from="SaveLoadPanel/MarginContainer/VBox/HBox/Slot3" to="." method="_on_saveload_slot" binds= [3]]
+[connection signal="pressed" from="SaveLoadPanel/MarginContainer/VBox/BackButton" to="." method="_on_saveload_back_pressed"]
+[connection signal="pressed" from="Inventory/item_description/vbox/ButtonBox/Button" to="Inventory" method="_on_use"]
+[connection signal="pressed" from="Inventory/item_description/vbox/ButtonBox/DropButton" to="Inventory" method="_on_drop"]

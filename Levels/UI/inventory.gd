@@ -7,7 +7,8 @@ extends Control
 @onready var BigViewPort = $item_description/vbox/item_inspector/preview/Preview3d/SubViewport
 @onready var Biglabel = $item_description/vbox/Name/BigLabel
 @onready var Smalllabel = $item_description/vbox/Description/SmallLabel
-@onready var useButton = $item_description/vbox/Button
+@onready var useButton = $item_description/vbox/ButtonBox/Button
+@onready var dropButton = $item_description/vbox/ButtonBox/DropButton
 var slot_scene = preload("res://Levels/UI/inventory_slot.tscn")
 var last_data = null
 
@@ -49,6 +50,7 @@ func clear():
 	Biglabel.clear()
 	Smalllabel.clear()
 	useButton.disabled = true
+	dropButton.disabled = true
 	preview3d.visible = false
 	preview2d.visible = false
 
@@ -79,13 +81,25 @@ func _on_slot_focused(data:Item):
 	Smalllabel.add_text(data.description)
 	
 	useButton.disabled = !data.usable
+	dropButton.disabled = false
 	last_data = data
 
 func _on_slot_unfocused(data):
 	pass
 
 func _on_use():
+	if last_data == null:
+		return
 	last_data.use()
 	GameState.get_inventory().remove_item(last_data.itemID, 1)
+	last_data = null
+	clear()
+	populate()
+
+func _on_drop():
+	if last_data == null:
+		return
+	GameState.get_inventory().remove_item(last_data.itemID, 1)
+	last_data = null
 	clear()
 	populate()

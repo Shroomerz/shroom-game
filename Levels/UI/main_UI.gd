@@ -46,6 +46,12 @@ extends Control
 @onready var pauseHelp = $Help
 @onready var pauseHelpBack = $Help/MarginContainer/VBox/Back
 
+#Save/Load
+@onready var saveload_panel = $SaveLoadPanel
+@onready var saveload_title = $SaveLoadPanel/MarginContainer/VBox/Title
+@onready var saveload_back = $SaveLoadPanel/MarginContainer/VBox/BackButton
+var _saveload_mode := "" # "save" or "load"
+
 #Clock
 @onready var clock = $World/LeftTopDisplayers/SunClock
 ###############################################################
@@ -114,6 +120,8 @@ func _input(event):
 		togglePause()
 		toggleClockPause()
 		toggleWorldPause()
+	elif(event.is_action_pressed("ui_cancel") && saveload_panel.visible):
+		_on_saveload_back_pressed()
 	elif(event.is_action_pressed("ui_cancel") && pauseHelp.visible && !settings.visible && !exit_settings.visible):
 		togglePauseHelp()
 	
@@ -340,7 +348,55 @@ func _on_pause_help_pressed()-> void:
 	
 func  _on_pause_help_back_pressed()->void:
 	togglePauseHelp()
-	
+
+######################################################################
+#Save/Load
+######################################################################
+
+func _on_pause_save_pressed() -> void:
+	_saveload_mode = "save"
+	saveload_title.text = "SAVE GAME"
+	_update_slot_labels()
+	pause.visible = false
+	saveload_panel.visible = true
+	await get_tree().process_frame
+	saveload_back.grab_focus()
+
+func _on_pause_load_pressed() -> void:
+	_saveload_mode = "load"
+	saveload_title.text = "LOAD GAME"
+	_update_slot_labels()
+	pause.visible = false
+	saveload_panel.visible = true
+	await get_tree().process_frame
+	saveload_back.grab_focus()
+
+func _update_slot_labels() -> void:
+	for i in range(1, 4):
+		var btn = saveload_panel.get_node("MarginContainer/VBox/HBox/Slot%d" % i)
+		var path = GameState.SAVE_DIR + "slot_%d.save" % i
+		if FileAccess.file_exists(path):
+			btn.text = "Slot %d (used)" % i
+		else:
+			btn.text = "Slot %d (empty)" % i
+
+func _on_saveload_slot(slot: int) -> void:
+	if _saveload_mode == "save":
+		GameState.save_data(slot)
+	elif _saveload_mode == "load":
+		var path = GameState.SAVE_DIR + "slot_%d.save" % slot
+		if not FileAccess.file_exists(path):
+			return
+		GameState.load_data(slot)
+	saveload_panel.visible = false
+	togglePause()
+
+func _on_saveload_back_pressed() -> void:
+	saveload_panel.visible = false
+	pause.visible = true
+	await get_tree().process_frame
+	pauseBack.grab_focus()
+
 ###################################################
 # Health & Stamina
 ######################################################
