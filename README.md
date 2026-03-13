@@ -1,40 +1,56 @@
-[Download our game here](https://shroomerzzz.itch.io/shroomer-adventure-2025)
-
-# 🍄 Shroom-game
+# Shroom Game
 
 A mystical arcade game centered around exploration, alchemy, and the magical properties of mushrooms.
 
-## 🌟 Overview
+## Download
 
-Shroom-game is an open-world arcade game where players take on the role of a novice alchemist discovering the hidden properties of the mushroom kingdom. Traverse diverse biomes, collect rare fungi, craft potions.
+**[Latest release (v1.0.0)](https://github.com/Shroomerz/shroom-game/releases/latest)** - ready-to-play builds for Linux and Windows.
 
-This project was developed as part of the Software Engineering course at Jagiellonian University, applying concepts of object-oriented design, procedural generation, and interactive narrative systems.
+| Platform | Download |
+|----------|----------|
+| Linux (x86_64) | [ShroomGame-Linux-x86_64.zip](https://github.com/Shroomerz/shroom-game/releases/latest/download/ShroomGame-Linux-x86_64.zip) |
+| Windows (x86_64) | [ShroomGame-Windows-x86_64.zip](https://github.com/Shroomerz/shroom-game/releases/latest/download/ShroomGame-Windows-x86_64.zip) |
 
-## ✨ Features
+Also available on [itch.io](https://shroomerzzz.itch.io/shroomer-adventure-2025).
 
-- **Expansive World Exploration**: Journey through lush forests, damp caves, glowing underground networks, and abandoned mycologist laboratories.
+No installation required - just unzip and run.
 
-- **Mycology System**: Discover, catalog, and study unique species of mushrooms, each with distinctive properties and alchemical uses.
+## Overview
 
-- **Alchemy Crafting**: Use your knowledge of mushroom properties and combine discovered fungi with other natural elements to create potions, elixirs, and compounds with various effects.
+Shroom Game is an open-world arcade game where players take on the role of a novice alchemist discovering the hidden properties of the mushroom kingdom. Traverse diverse biomes, collect rare fungi, craft potions.
 
-- **Procedurally Generated**: Replay the game many times each time experiencing differents styles of mushrooms and terrain.
+This project was developed as part of the Software Engineering course at Jagiellonian University.
 
-- **Test Your Might**: Battle formidable foes utilizing your Craftables in your own unique playstyle.
+## Features
 
-## 🛠️ Technical Details
+- **Procedurally generated world** - biomes, mushrooms, enemies and terrain generated using Simplex noise and chunk-based streaming
+- **Mycology & alchemy** - collect mushrooms with unique procedurally generated properties, brew potions that affect your stats (speed, damage, health, attack speed)
+- **Combat system** - fight goblins with melee attacks, state machine-driven AI
+- **Stamina system** - sprint (Shift) drains stamina slowly, attacks drain it in chunks, regenerates while resting
+- **Procedural ambient audio** - wind, drones, birdsong and crickets generated in real-time, fading during combat
+- **Save/Load** - 3 save slots accessible from the pause menu
+- **Settings** - resolution, fullscreen, borderless, volume, dark mode
 
-The game is built using Godot with an emphasis on procedural generation for mushroom varieties and their properties. The alchemy system uses a component-based approach where each ingredient contributes specific attributes to the final creation.
+## Controls
 
-## 🔮 The Alchemy System
+| Key | Action |
+|-----|--------|
+| WASD / Arrows | Move |
+| Shift | Sprint |
+| LMB / Space | Attack |
+| Tab | Inventory |
+| Escape | Pause / Back |
 
-The heart of Shroom-game is its compled alchemy system. Each mushroom has special properties that can be mixed and matched in advanced potion brewing system.
-Players can experiment freely with combinations, discovering recipes through trial and error. (or by finding research notes throughout the world
+## Technical details
 
-## 🤝 Contributing
+Built with **Godot 4.4** (Forward Plus renderer). Key technical aspects:
 
-Due to this being a university course project, we currently do not accept any outside contributions.
+- State machine pattern for player and enemy AI
+- Producer-consumer threading for mushroom generation (Semaphore + Mutex)
+- Chunk-based world generation with background threads
+- AudioStreamGenerator for procedural audio synthesis
+- Component-based alchemy system with stat modifiers
 
-## 📜 License
+## License
 
-All rights reserved
+All rights reserved.
