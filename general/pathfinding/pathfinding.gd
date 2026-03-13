@@ -24,7 +24,7 @@ var directions: Array[Vector2] = [
 
 func _ready() -> void:
 	for i in range(number_of_dir):
-		directions[i].normalized()
+		directions[i] = directions[i].normalized()
 	ray.enabled = false
 		
 func prev(i: int) -> int:
@@ -33,7 +33,7 @@ func prev(i: int) -> int:
 func next(i: int) -> int:
 	return (i + 1) % number_of_dir
 
-func get_movment_direction(target: Vector2) -> Vector2:
+func get_movement_direction(target: Vector2) -> Vector2:
 	
 	ray.enabled = true
 	for i in range(number_of_dir):

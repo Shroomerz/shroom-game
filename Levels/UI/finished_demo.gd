@@ -7,12 +7,16 @@ extends CanvasLayer
 @onready var scorespot = $VBoxContainer/MarginContainer3/Label
 @onready var patience = $FadeRect/PanelContainer
 
+var _finish_shown := false
+
 func show_finish():
+	if _finish_shown:
+		return
+	_finish_shown = true
 	var UI = get_parent()
 	if(UI.inv.visible):
 		UI.toggleInv()
 	UI.lefttop.visible = false
-	#get_parent().process_mode = Node.PROCESS_MODE_PAUSABLE
 	fade_rect.modulate.a = 0
 	label.modulate.a = 0
 	visible = true
@@ -26,18 +30,16 @@ func fade_in_text():
 	var text_tween = create_tween()
 	text_tween.tween_property(label, "modulate:a", 1.0, 1.0)
 
-func _process(delta: float) -> void:
-	if get_parent().time_ratio >= 0.95:
-		get_parent().time_ratio = 0
+func _process(_delta: float) -> void:
+	if get_parent().time_ratio >= 0.95 and not _finish_shown:
 		scorespot.clear()
 		scorespot.add_text("Score: " + str(GameState.points))
 		show_finish()
-		get_tree().paused = true;
+		get_tree().paused = true
 		get_parent().process_mode = Node.PROCESS_MODE_PAUSABLE
-	pass
 
 func _ready():
-	patience.visible = false;
+	patience.visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	quit.process_mode = Node.PROCESS_MODE_ALWAYS
 	menu.process_mode = Node.PROCESS_MODE_ALWAYS

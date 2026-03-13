@@ -28,34 +28,9 @@ func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
 	
 func set_face_direction(target: Vector2) -> bool:
-	if target == Vector2.ZERO:
+	var new_dir := DirectionUtils.vector_to_direction(target)
+	if new_dir == "" or new_dir == face_direction:
 		return false
-	
-	var angle: float = rad_to_deg(target.angle())
-	if angle < 0:
-		angle += 360
-	
-	var new_dir: String
-	if angle >= 337.5 or angle < 22.5:
-		new_dir = "E"   
-	elif angle >= 22.5 and angle < 67.5:
-		new_dir = "SE"    
-	elif angle >= 67.5 and angle < 112.5:
-		new_dir = "S"      
-	elif angle >= 112.5 and angle < 157.5:
-		new_dir = "SW"     
-	elif angle >= 157.5 and angle < 202.5:
-		new_dir = "W"      
-	elif angle >= 202.5 and angle < 247.5:
-		new_dir = "NW"     
-	elif angle >= 247.5 and angle < 292.5:
-		new_dir = "N"      
-	else:  
-		new_dir = "NE"     
-	
-	if new_dir == face_direction:
-		return false
-	
 	face_direction = new_dir
 	return true
 	

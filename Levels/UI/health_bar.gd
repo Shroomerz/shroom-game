@@ -18,17 +18,22 @@ func _ready():
 	healthbar.position = Vector2(50, 50)
 	healthbar.size = Vector2(BAR_WIDTH, BAR_HEIGHT)
 
-	# Use solid colors for the bar—no image files required!
+	# Use solid colors for the bar
 	var bg_tex = _make_colored_texture(Color(0.2, 0.2, 0.2), BAR_WIDTH, BAR_HEIGHT)
 	var fg_tex = _make_colored_texture(Color(0.2, 0.9, 0.2), BAR_WIDTH, BAR_HEIGHT)
 	var outline_tex = _make_colored_outline_texture(Color.BLACK, BAR_WIDTH, BAR_HEIGHT, OUTLINE_THICKNESS)
 
-	healthbar.texture_under = bg_tex      # background bar
-	healthbar.texture_progress = fg_tex   # fill bar
-	healthbar.texture_over = outline_tex  # black outline
+	healthbar.texture_under = bg_tex
+	healthbar.texture_progress = fg_tex
+	healthbar.texture_over = outline_tex
 
 	add_child(healthbar)
-	healthbar.position -= Vector2(160, -150) # so the outline is visible
+	healthbar.position -= Vector2(160, -150)
+
+func update_bar():
+	if healthbar:
+		healthbar.max_value = GameState.max_health
+		healthbar.value = GameState.health
 
 func _make_colored_texture(col: Color, w: int, h: int, line_only := false) -> ImageTexture:
 	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
@@ -50,7 +55,5 @@ func _make_colored_outline_texture(col: Color, w: int, h: int, t: int) -> ImageT
 	var tex := ImageTexture.create_from_image(img)
 	return tex
 
-func _process(delta):
-	# LIVE UPDATE from GameState (if it changes during the game)
-	healthbar.max_value = GameState.max_health
-	healthbar.value = GameState.health
+func _process(_delta):
+	update_bar()

@@ -134,4 +134,4 @@ func _process(delta):
 	if advance_time:
 		current_time_ratio = fmod(current_time_ratio + delta * time_speed, 1.0)
 		get_parent().get_parent().get_parent().time_ratio = current_time_ratio
-	queue_redraw()
+		queue_redraw()

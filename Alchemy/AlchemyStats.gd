@@ -26,10 +26,10 @@ static func stats_to_strings(stats: Dictionary):
 ]
 
 static func apply_stats(stats: Dictionary):
-	GameState.apply_speed_change(min(0.1, stats["speed"]))
-	GameState.apply_damage_change(min(0.5, stats["damage"]))
+	GameState.apply_speed_change(clampf(stats["speed"], -0.1, 0.1))
+	GameState.apply_damage_change(clampi(int(stats["damage"]), -1, 1))
 	GameState.take_damage(-stats["health"])
 	GameState.apply_max_health_change(stats["max health"])
-	GameState.apply_attack_speed_change(min(0.05, stats["attack speed"]))
+	GameState.apply_attack_speed_change(clampf(stats["attack speed"], -0.05, 0.05))
 	GameState.give_points(calculate_points(stats))
 	GameState.apply_acidity(stats["acidity"])

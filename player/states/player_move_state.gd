@@ -18,5 +18,5 @@ func handle_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	move_speed = base_move_speed * GameState.speed
-	direction = move_component.get_movment_direction()
+	direction = move_component.get_movement_direction()
 	return super(delta)

@@ -43,7 +43,7 @@ func _ready():
 	self.visible = false
 
 func clear():
-	for child in grid.get_children():
+	for child in grid.get_children().duplicate():
 		grid.remove_child(child)
 		child.queue_free()
 	Biglabel.clear()
@@ -86,6 +86,6 @@ func _on_slot_unfocused(data):
 
 func _on_use():
 	last_data.use()
-	GameState._inventory.remove_item(last_data.itemID,1)
+	GameState.get_inventory().remove_item(last_data.itemID, 1)
 	clear()
 	populate()

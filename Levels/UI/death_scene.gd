@@ -6,20 +6,22 @@ extends CanvasLayer
 @onready var menu = $VBoxContainer/HBoxContainer/menu
 @onready var patience = $FadeRect/PanelContainer
 
+var _death_shown := false
 
-# Called when you want to show death screen
 func show_death():
+	if _death_shown:
+		return
+	_death_shown = true
 	var UI = get_parent()
 	if(UI.inv.visible):
 		UI.toggleInv()
 	UI.lefttop.visible = false
-	#get_parent().process_mode = Node.PROCESS_MODE_PAUSABLE
 	fade_rect.modulate.a = 0
 	label.modulate.a = 0
 	visible = true
 	var fade_tween = create_tween()
 	fade_tween.tween_property(fade_rect, "modulate:a", 0.8, 1.0)
-	fade_tween.tween_callback(func(): fade_in_text())   
+	fade_tween.tween_callback(func(): fade_in_text())
 	await get_tree().create_timer(2).timeout
 	quit.grab_focus()
 
@@ -27,13 +29,11 @@ func fade_in_text():
 	var text_tween = create_tween()
 	text_tween.tween_property(label, "modulate:a", 1.0, 1.0)
 
-func _process(delta: float) -> void:
-	if GameState.health <= 0:
+func _process(_delta: float) -> void:
+	if GameState.health <= 0 and not _death_shown:
 		show_death()
-		GameState.health = 1
-		get_tree().paused = true;
+		get_tree().paused = true
 		get_parent().process_mode = Node.PROCESS_MODE_PAUSABLE
-	pass
 
 func _ready():
 	patience.visible = false

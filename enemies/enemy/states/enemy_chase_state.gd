@@ -7,8 +7,8 @@ func process_physics(delta: float) -> State:
 		return attack_state
 	direction = lerp( 
 		direction,
-		move_component.get_movment_direction(parent.get_player_pos()),
+		move_component.get_movement_direction(parent.get_player_pos()),
 		turn_rate * delta )
-	direction.normalized()
+	direction = direction.normalized()
 	
 	return super(delta)
