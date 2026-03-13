@@ -55,25 +55,16 @@ func _on_regen_area_body_exited(body: Node2D) -> void:
 		var super_coords := _player.get_super_coords() as Vector2i
 		_regen_area.position = (Vector2(super_coords) + Vector2(0.5, 0.5)) * Chunk.SIZE * _tile_size
 		var populating_thread := Thread.new()
-		print("DUPA AAAAAAAAAA")
 		populating_thread.start(_populate_chunks_around.bind(super_coords))
-		print("DUPA BBBBBBBBBBBB")
 		_threads.append(populating_thread)
-		print("DUPA CCCCCCCCCC")
-		print("new _threads = ", _threads)
 
 func _exit_tree() -> void:
-	print("We have ", _threads.size(), " threads")
 	for thread in _threads:
-		print("Waiting on ", thread.get_id())
 		thread.wait_to_finish()
-		print("Waiting done")
-	print("World._exit_tree() done.")
 
 func _populate_chunks_around(super_coords: Vector2i) -> void:
 	for offset in Util.vec2i_range(Vector2i(-1, -1), Vector2i(2, 2)):
 		_populate_chunk_at(super_coords + offset)
-	print("_populate_chunks_around(...) done")
 
 func _populate_chunk_at(super_coords: Vector2i) -> void:
 	if GameState.get_board().has_chunk(super_coords):
@@ -105,10 +96,7 @@ func _populate_chunk_at(super_coords: Vector2i) -> void:
 					_enemies_layer.call_thread_safe("add_child", enemy_scene)
 
 func _on_shroom_pickup(body: Node2D, shroom_scene) -> void:
-	#print("bbbbbbbbbbbbbbbbbbbbbbbbbbb ", shroom_scene, " and ", body)
 	if body == _player:
-		#print("duuuuuuuupaaaa")
-		
 		shroom_scene._subviewport.remove_child(shroom_scene.shroom)
 		GameState.get_inventory().add_item(shroom_scene.shroom, 1)
 		_items_layer.remove_child.call_deferred(shroom_scene)

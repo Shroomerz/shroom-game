@@ -35,7 +35,6 @@ static func _static_init() -> void:
 	# Calculate the Gaussian blur matrix:
 	_GAUSSIAN.resize(_SIDELEN * _SIDELEN)
 	for xy in Util.vec2i_range(Vector2i(-_R, -_R), Vector2i(_R + 1, _R + 1)):
-		print(xy)
 		var i := xy.y + _R
 		var j := xy.x + _R
 		_GAUSSIAN[i * _SIDELEN + j] = exp(-(xy.x * xy.x + xy.y * xy.y) / _2SDSQ) / (PI * _2SDSQ)

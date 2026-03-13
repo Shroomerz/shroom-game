@@ -20,12 +20,8 @@ func generate_species(seed: int) -> IngredientSpecies:
 	random.set_seed(seed)
 	
 	
-	# TODO: Materials should be picked at random from a list which is initiated at startup
-	var material;
-	if random.randf() < 0.5:
-		material = SpeclesMaterial.new()
-	else:
-		material = StripesMaterial.new()
+	var available_materials = [SpeclesMaterial, StripesMaterial]
+	var material = available_materials[random.randi_range(0, available_materials.size() - 1)].new()
 	
 	result.parameters_dictionary["material"] = \
 		{"reference": material, \

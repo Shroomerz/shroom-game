@@ -21,7 +21,12 @@ const max_acidity = 100.0
 
 var player_pos: Vector2 = Vector2.ZERO
 
-var hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje = 0
+var _next_specimen_id: int = 0
+
+func get_next_specimen_id() -> int:
+	var id = _next_specimen_id
+	_next_specimen_id += 1
+	return id
 
 func apply_acidity(change: float):
 	acidity += change
@@ -85,6 +90,7 @@ func hard_reset():
 	acidity = 0;
 	acidity_changed.emit(acidity)
 	_inventory.clear()
+	_next_specimen_id = 0
 	#_day_counter = 0
 	#_game_seed = 0
 	
@@ -98,18 +104,51 @@ func get_inventory():
 	return _inventory
 
 func get_species_registry():
-	# TODO: SpeciesRegistry class
-	pass
+	return GlobalSpeciesRegistry
 
-# Savefiles -- TBD:
+## Save/Load system
+const SAVE_DIR := "user://saves/"
 
-func save_data(slot, data):
-	# TODO: savefiles
-	pass
+func save_data(slot: int, extra_data: Dictionary = {}) -> Error:
+	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
+	var save_dict := {
+		"day_counter": _day_counter,
+		"game_seed": _game_seed,
+		"speed": speed,
+		"damage": damage,
+		"health": health,
+		"max_health": max_health,
+		"points": points,
+		"attack_speed": attack_speed,
+		"acidity": acidity,
+	}
+	save_dict.merge(extra_data)
+	var file := FileAccess.open(SAVE_DIR + "slot_%d.save" % slot, FileAccess.WRITE)
+	if file == null:
+		return FileAccess.get_open_error()
+	file.store_var(save_dict)
+	return OK
 
-func load_data(slot):
-	# TODO: savefiles
-	pass
+func load_data(slot: int) -> Dictionary:
+	var path := SAVE_DIR + "slot_%d.save" % slot
+	if not FileAccess.file_exists(path):
+		return {}
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return {}
+	var data: Dictionary = file.get_var()
+	if data.is_empty():
+		return {}
+	_day_counter = data.get("day_counter", 0)
+	_game_seed = data.get("game_seed", 0)
+	speed = data.get("speed", 1.0)
+	damage = data.get("damage", 10)
+	health = data.get("health", 100)
+	max_health = data.get("max_health", 100)
+	points = data.get("points", 0)
+	attack_speed = data.get("attack_speed", 1.0)
+	acidity = data.get("acidity", 0.0)
+	return data
 
 func set_player_pos(pos: Vector2) -> void:
 	player_pos = pos

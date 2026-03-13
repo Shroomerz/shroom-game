@@ -31,29 +31,37 @@ var _elements_ready := 0
 var _next_ready := 0
 const _all_spaces := 200
 var _queue_mutex := Mutex.new()
+var _semaphore := Semaphore.new()
 
-var done = 0
+var _done := false
 
 func _shroom_producer():
 	for i in range(_all_spaces):
-		_queue.push_back(0)
-	
+		_queue.push_back(null)
+
 	while generated_species.size() < 5:
-		pass
-	
-	while done == 0:
-		if _elements_ready < _all_spaces:
-			var seed = randi()
-			var shroom_to_add = _get_random_species(seed).generate_specimen(seed)
-			
+		if _done:
+			return
+		OS.delay_msec(10)
+
+	while not _done:
+		_queue_mutex.lock()
+		var count = _elements_ready
+		_queue_mutex.unlock()
+
+		if count < _all_spaces:
+			var s = randi()
+			var shroom_to_add = _get_random_species(s).generate_specimen(s)
+
 			_queue_mutex.lock()
-			
-			var next_empty = _next_ready + _elements_ready
-			next_empty %= _all_spaces
+			var next_empty = (_next_ready + _elements_ready) % _all_spaces
 			_queue[next_empty] = shroom_to_add
 			_elements_ready += 1
-			
 			_queue_mutex.unlock()
+
+			_semaphore.post()
+		else:
+			OS.delay_msec(1)
 
 var producer_thread := Thread.new()
 
@@ -61,31 +69,19 @@ func _ready():
 	producer_thread.start(self._shroom_producer)
 
 func _notification(what: int):
-	if (what == NOTIFICATION_PREDELETE):
-		done = 1
+	if what == NOTIFICATION_PREDELETE:
+		_done = true
+		if producer_thread.is_started():
+			producer_thread.wait_to_finish()
 
-var _look_up_mutex := Mutex.new()
+## Returns a random shroom from the pre-generated queue
+func generate_shroom(_seed: int = 0) -> IngredientSpecimen:
+	_semaphore.wait()
 
-## Returns a random shroom
-## If seed == 0 then it's all random, if seed != 0 then that seed will be used for the generation
-func generate_shroom(seed: int = 0) -> IngredientSpecimen:
-	var result
-	
-	while true:
-		_look_up_mutex.lock()
-		if _elements_ready > 0:
-			break
-		_look_up_mutex.unlock()
-		
 	_queue_mutex.lock()
-	
-	result = _queue[_next_ready]
-	_next_ready += 1
-	_next_ready %= _all_spaces
+	var result = _queue[_next_ready]
+	_next_ready = (_next_ready + 1) % _all_spaces
 	_elements_ready -= 1
-	
 	_queue_mutex.unlock()
-	
-	_look_up_mutex.unlock()
-	
+
 	return result

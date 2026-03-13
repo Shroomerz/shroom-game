@@ -30,32 +30,14 @@ func generate_species(seed: int) -> IngredientSpecies:
 	random.set_seed(seed)
 	
 	
-	# TODO: Materials should be picked at random from a list which is initiated at startup
-	var cap_material;
-	if random.randf() < 0.5:
-		cap_material = SpeclesMaterial.new()
-	else:
-		cap_material = StripesMaterial.new()
-		
-	var stipe_material;
-	if random.randf() < 0.5:
-		stipe_material = SpeclesMaterial.new()
-	else:
-		stipe_material = StripesMaterial.new()
-	
-	# TODO: Caps should be picked at random from a list which is initiated at startup
-	
-	var cap_mesh;
-	if random.randf() < 0.5:
-		cap_mesh = ExponentialCap.new()
-	else:
-		cap_mesh = FlatCap.new()
-	
-	var stipe_mesh;
-	if random.randf() < 0.5:
-		stipe_mesh = BezierStipe.new()
-	else:
-		stipe_mesh = StraightStipe.new()
+	var available_materials = [SpeclesMaterial, StripesMaterial]
+	var available_caps = [ExponentialCap, FlatCap]
+	var available_stipes = [BezierStipe, StraightStipe]
+
+	var cap_material = available_materials[random.randi_range(0, available_materials.size() - 1)].new()
+	var stipe_material = available_materials[random.randi_range(0, available_materials.size() - 1)].new()
+	var cap_mesh = available_caps[random.randi_range(0, available_caps.size() - 1)].new()
+	var stipe_mesh = available_stipes[random.randi_range(0, available_stipes.size() - 1)].new()
 	
 	result.parameters_dictionary["cap material"] = {
 		"reference": cap_material,

@@ -7,18 +7,17 @@ var new_x
 const box_size = 10
 
 func _init():
-	# To jest brzydkie, ale nie ma już czasu zrobić tego sensownie
-	itemID = "Shroom" + str(GameState.hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje)
-	var i = GameState.hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje
+	var i = GameState.get_next_specimen_id()
+	itemID = "Shroom" + str(i)
 	new_x = i * box_size
-	
+
 	usable = true
 	type = "3d"
-	
+
 	var camera = Camera3D.new()
 	camera.current = true
 	camera.position = Vector3(new_x, 2.5, 5.0)
-	
+
 	var environment = Environment.new()
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	environment.ambient_light_color = Color(0.8, 0.6, 1.0)
@@ -29,10 +28,8 @@ func _init():
 	var light = OmniLight3D.new()
 	light.position = Vector3(new_x - box_size / 4, box_size, box_size / 2)
 	light.omni_range = 1.5 * box_size
-	light.omni_attenuation = -0.5 
+	light.omni_attenuation = -0.5
 	add_child(light)
-	
-	GameState.hamski_hack_prosze_tego_psia_krew_nie_tykac_bo_zamorduje += 1
 
 func create_inventory_entity():
 	var result = Node.new()

@@ -342,21 +342,24 @@ func  _on_pause_help_back_pressed()->void:
 	togglePauseHelp()
 	
 ###################################################
-#############NOT YET IMPLEMENTED
+# Health & Stamina
 ######################################################
-@onready var health_bar = $Settings/MarginContainer/VBox/VolPanel/MarginContainer/SoundSlide
-@onready var stamina_bar = health_bar
+@onready var health_bar_control = $World/LeftTopDisplayers/HealthBar
 
-func set_max_health(val):
+func set_max_health(val: float):
+	GameState.max_health = val
+	if health_bar_control and health_bar_control.healthbar:
+		health_bar_control.healthbar.max_value = val
+
+func update_health(val: float):
+	GameState.health = val
+	if health_bar_control and health_bar_control.healthbar:
+		health_bar_control.healthbar.value = val
+
+func set_max_stamina(_val: float):
 	pass
 
-func update_health(val):
-	pass
-	
-func set_max_stamina(val):
-	pass
-
-func update_stamina(val):
+func update_stamina(_val: float):
 	pass
 
 
