@@ -6,7 +6,7 @@ extends Node
 const MIX_RATE := 22050.0
 const BUFFER_SIZE := 1024
 
-var _playback: AudioStreamPlaybackGenerator
+var _playback: AudioStreamGeneratorPlayback
 var _player: AudioStreamPlayer
 var _phase_wind := 0.0
 var _phase_birds := [0.0, 0.0, 0.0]
@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 	_fill_buffer(delta)
 
 func _fill_buffer(_delta: float) -> void:
-	var frames_available := _playback.get_frames_available()
+	var frames_available: int = _playback.get_frames_available()
 	if frames_available == 0:
 		return
 
