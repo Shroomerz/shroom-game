@@ -22,6 +22,15 @@ var _volume_current := 0.0
 var _combat_check_timer := 0.0
 var _initialized := false
 
+var _chord_timer: float = randf_range(5.0, 15.0)  # espera inicial aleatoria
+var _chord_duration: float = 0.0
+var _chord_active: bool = false
+var _chord_root: float = 0.0
+var _chord_phases: Array[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+var _chord_glide_speed: float = 0.0
+var _chord_current_pitch: float = 1.0
+var _chord_target_pitch: float = 1.0
+
 func _ready() -> void:
 	_rng.seed = hash("leśny ambient z nutą tajemnicy")
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -59,11 +68,11 @@ func _process(delta: float) -> void:
 
 	_fill_buffer(delta)
 
+
 func _fill_buffer(_delta: float) -> void:
 	var frames_available: int = _playback.get_frames_available()
 	if frames_available == 0:
 		return
-
 	var inv_rate := 1.0 / MIX_RATE
 	for i in frames_available:
 		var sample := 0.0
@@ -72,7 +81,7 @@ func _fill_buffer(_delta: float) -> void:
 		_lfo_phase += 0.3 * inv_rate
 		var wind_volume := 0.15 * (0.5 + 0.5 * sin(_lfo_phase * TAU))
 		var noise := (_rng.randf() * 2.0 - 1.0)
-		_phase_wind = _phase_wind * 0.97 + noise * 0.03  # simple lowpass
+		_phase_wind = _phase_wind * 0.97 + noise * 0.03
 		sample += _phase_wind * wind_volume
 
 		# Drone layer: two quiet sine waves
@@ -97,6 +106,69 @@ func _fill_buffer(_delta: float) -> void:
 		# Crickets: high frequency amplitude-modulated noise
 		var cricket_mod := 0.5 + 0.5 * sin(_lfo_phase * TAU * 11.0)
 		sample += (_rng.randf() * 2.0 - 1.0) * 0.02 * cricket_mod
+
+		# ── Harmonic chord layer: major chords that glide upward ──────────────
+		const MAJOR_CHORD := [
+	1.0,       # raíz       (1ª)
+	1.25992,   # tercera    (3ª)  — 4 semitonos
+	1.49831,   # quinta     (5ª)  — 7 semitonos
+	1.78180,   # séptima    (7ª)  — 11 semitonos (maj7)
+	2.00000,   # novena     (9ª)  — 12 semitonos (octava)
+	2.24492,   # undécima   (11ª) — 16 semitonos
+	2.66667,   # decimotercera (13ª) — 21 semitonos (maj13)
+	3.00000,   # decimoquinta  (15ª) — 24 semitonos (dos octavas)
+]
+
+		if _chord_active:
+			_chord_duration -= inv_rate
+
+			# Glide suave: interpolar pitch actual hacia el objetivo
+			_chord_current_pitch = move_toward(
+				_chord_current_pitch,
+				_chord_target_pitch,
+				_chord_glide_speed * inv_rate
+			)
+
+			# Envolvente: fade-in rápido, sustain, fade-out suave al final
+			var env: float
+			var fade_time := 0.4
+			var elapsed := (_chord_duration)   # tiempo restante
+			var total := _chord_timer           # guardamos duración total al inicio (ver abajo)
+			# Usamos _chord_timer como "tiempo ya transcurrido" durante el acorde
+			_chord_timer += inv_rate
+			var t_elapsed := _chord_timer
+			var t_total := _chord_duration + _chord_timer
+			var t_progress := _chord_timer / t_total
+			env = sin(t_progress * PI)
+
+			# Sumar las tres voces del acorde
+			for v in MAJOR_CHORD.size():
+				var freq :float = _chord_root * MAJOR_CHORD[v] * _chord_current_pitch
+				_chord_phases[v] += freq * inv_rate
+				# Las voces superiores son progresivamente más suaves
+				var voice_vol := 0.045 * pow(0.75, v)
+				sample += sin(_chord_phases[v] * TAU) * voice_vol * env
+
+			if _chord_duration <= 0.0:
+				_chord_active = false
+				_chord_timer = _rng.randf_range(8.0, 10.0)  # pausa hasta el próximo acorde
+		else:
+			_chord_timer -= inv_rate
+			if _chord_timer <= 0.0:
+				# Activar nuevo acorde
+				_chord_active = true
+				_chord_root = _rng.randf_range(30.0, 320.0)
+				_chord_duration = _rng.randf_range(3.0, 7.0)
+				_chord_timer = 0.0   # se usará como contador de tiempo transcurrido
+				_chord_current_pitch = 1.0
+				var semitones := _rng.randf_range(1.0, 4.0)
+				var direction := 1.0 if _rng.randf() > 0.5 else -1.0
+				_chord_target_pitch = pow(2.0, direction * semitones / 12.0)
+				_chord_glide_speed = (_chord_target_pitch - _chord_current_pitch) / _chord_duration
+				# Resetear fases
+				for v in MAJOR_CHORD.size():
+					_chord_phases[v] = _rng.randf()   # fase aleatoria evita clic
+		# ── Fin capa de acordes ───────────────────────────────────────────────
 
 		sample = clampf(sample, -1.0, 1.0)
 		_playback.push_frame(Vector2(sample, sample))
