@@ -401,6 +401,7 @@ func _on_saveload_back_pressed() -> void:
 # Health & Stamina
 ######################################################
 @onready var health_bar_control = $World/LeftTopDisplayers/HealthBar
+@onready var stamina_bar_control = $World/LeftTopDisplayers/StaminaBar
 
 func set_max_health(val: float):
 	GameState.max_health = val
@@ -412,11 +413,15 @@ func update_health(val: float):
 	if health_bar_control and health_bar_control.healthbar:
 		health_bar_control.healthbar.value = val
 
-func set_max_stamina(_val: float):
-	pass
+func set_max_stamina(val: float):
+	GameState.max_stamina = val
+	if stamina_bar_control and stamina_bar_control.staminabar:
+		stamina_bar_control.staminabar.max_value = val
 
-func update_stamina(_val: float):
-	pass
+func update_stamina(val: float):
+	GameState.stamina = val
+	if stamina_bar_control and stamina_bar_control.staminabar:
+		stamina_bar_control.staminabar.value = val
 
 
 func _on_pause_main_menu_pressed() -> void:

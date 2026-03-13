@@ -99,6 +99,9 @@ func _on_use():
 func _on_drop():
 	if last_data == null:
 		return
+	# Marie Kondo would be proud
+	if last_data.name == "Golden Shroom" if "name" in last_data else false:
+		print("Naprawdę chcesz to wyrzucić...? No ok, Twoja strata.")
 	GameState.get_inventory().remove_item(last_data.itemID, 1)
 	last_data = null
 	clear()

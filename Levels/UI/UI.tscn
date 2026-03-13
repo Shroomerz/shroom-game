@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://5g0ck17xo6y0"]
+[gd_scene load_steps=25 format=3 uid="uid://5g0ck17xo6y0"]
 
 [ext_resource type="Script" uid="uid://m0h24osf5ffj" path="res://Levels/UI/main_UI.gd" id="1_xiihc"]
 [ext_resource type="Texture2D" uid="uid://bv58m5ar8agh6" path="res://assets/ilovethisbg.png" id="2_tg0pe"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dupgrg2wevyir" path="res://Levels/UI/sun_clock.gd" id="4_nmp14"]
 [ext_resource type="Script" uid="uid://caed4taxpimpd" path="res://Levels/UI/label.gd" id="5_2gfmn"]
 [ext_resource type="Script" uid="uid://cn52wib5gm6ks" path="res://Levels/UI/health_bar.gd" id="6_sh7ty"]
+[ext_resource type="Script" path="res://Levels/UI/stamina_bar.gd" id="19_stbar"]
 [ext_resource type="Script" uid="uid://bnwujv5lftxlp" path="res://Levels/UI/main_settings_panel.gd" id="7_camxr"]
 [ext_resource type="Script" uid="uid://dtlrtrftvhm8e" path="res://Levels/UI/exit_confirm.gd" id="8_684pd"]
 [ext_resource type="Script" uid="uid://b4knqokidlnwk" path="res://Levels/UI/world.gd" id="9_qxt7c"]
@@ -103,6 +104,11 @@ script = ExtResource("5_2gfmn")
 custom_minimum_size = Vector2(800, 60)
 layout_mode = 2
 script = ExtResource("6_sh7ty")
+
+[node name="StaminaBar" type="Control" parent="World/LeftTopDisplayers"]
+custom_minimum_size = Vector2(800, 40)
+layout_mode = 2
+script = ExtResource("19_stbar")
 
 [node name="Menu" type="TextureRect" parent="."]
 visible = false

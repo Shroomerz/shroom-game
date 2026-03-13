@@ -30,6 +30,10 @@ func _ready() -> void:
 	_regen_area_shape.scale = Vector2(Chunk.SIZE, Chunk.SIZE)
 	_regen_area.position = Vector2(0.5, 0.5) * Chunk.SIZE * _tile_size
 	_populate_chunks_around(Vector2i(0, 0))
+	# Procedural ambient audio
+	var ambient = preload("res://audio/ambient_generator.gd").new()
+	ambient.name = "AmbientGenerator"
+	add_child(ambient)
 
 func _process(delta_: float) -> void:
 	# Collect the threads that have finished their work:

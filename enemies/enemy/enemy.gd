@@ -14,6 +14,7 @@ var attack_range := 20.0
 @onready var move_component = $MoveComponent
 
 func _ready() -> void:
+	add_to_group("enemies")
 	state_machine.init(self, move_component)
 	
 func _process(delta: float) -> void:
@@ -47,6 +48,9 @@ func take_damage(damage: int) -> void:
 		
 func die():
 	GameState.give_points(point_value)
+	# 1 in 100 chance the goblin has last words
+	if randi() % 100 == 0:
+		print("[Goblin's dying whisper]: \"Tell my wife... I said... hello.\"")
 	queue_free()
 	
 func get_player_pos() -> Vector2:
