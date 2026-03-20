@@ -8,7 +8,7 @@ static func get_distribution_of_distributions():
 		"health": DistributionOfDistributions.new(-50, 100, 5, 20),
 		"max health": DistributionOfDistributions.new(-30, 60, 5, 10),
 		"attack speed": DistributionOfDistributions.new(-0.5, 1.0, 0.05, 0.1),
-		"acidity": DistributionOfDistributions.new(-5.0, 15.0, 3.0, 3.1)
+		"acidity": DistributionOfDistributions.new(-10.0, 12.0, 3.0, 3.1)
 	}
 
 static func calculate_points(stats: Dictionary):

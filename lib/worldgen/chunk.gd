@@ -78,8 +78,10 @@ static func generate(gen_params: WorldGenParams, super_coords: Vector2i) -> Chun
 				blurred += chunk.get_cell(xy).biomic_xy * _GAUSSIAN[i * _SIDELEN + j]
 		chunk.get_cell(rel_coords).biomic_xy = blurred
 	
-	# 3. Generate point-like strucutres
-	
+	# 3. Generate point-like structures
+
+	var goblin_candidates: Array[Vector2i] = []
+
 	for rel_coords in Util.vec2i_range(Vector2i(0, 0), Vector2i(SIZE, SIZE)):
 		var coords := corner_coords + rel_coords
 		var x = coords.x
@@ -89,10 +91,24 @@ static func generate(gen_params: WorldGenParams, super_coords: Vector2i) -> Chun
 		var r_tree := absf(white_gen.get_noise_3d(x, y, 300))
 		if r_shroom <= 0.005:
 			chunk.get_cell(rel_coords).has_shroom = true
-		if r_goblin <= 0.0005:
-			chunk.get_cell(rel_coords).has_goblin = true
+		if r_goblin <= gen_params.goblin_threshold:
+			if gen_params.safe_zone_radius <= 0 or coords.length() > gen_params.safe_zone_radius:
+				goblin_candidates.append(rel_coords)
 		if r_tree <= 0.005:
 			chunk.get_cell(rel_coords).has_tree = true
+
+	# Filter goblins by minimum distance to prevent clustering
+	var placed_goblins: Array[Vector2i] = []
+	for candidate in goblin_candidates:
+		var too_close := false
+		if gen_params.min_enemy_distance > 0:
+			for placed in placed_goblins:
+				if (candidate - placed).length() < gen_params.min_enemy_distance:
+					too_close = true
+					break
+		if not too_close:
+			chunk.get_cell(candidate).has_goblin = true
+			placed_goblins.append(candidate)
 	
 	# alternative method of generation:
 	# (honestly idk if it doesn't yield better results...)

@@ -27,6 +27,7 @@ const STAMINA_ATTACK_COST := 25.0   # per attack (stepwise)
 const STAMINA_REGEN_RATE := 8.0     # per second while idle/walking (inverse of sprint)
 
 var player_pos: Vector2 = Vector2.ZERO
+var acidity_decay_rate: float = 0.0
 
 var _next_specimen_id: int = 0
 
@@ -55,11 +56,17 @@ func regen_stamina(delta: float) -> void:
 	stamina = minf(stamina + STAMINA_REGEN_RATE * delta, max_stamina)
 	stamina_changed.emit()
 
+func _process(delta: float) -> void:
+	if acidity_decay_rate > 0 and acidity > 0:
+		acidity = maxf(acidity - acidity_decay_rate * delta, 0.0)
+		acidity_changed.emit(acidity)
+
 func apply_acidity(change: float):
 	acidity += change
-	
+	acidity = maxf(acidity, 0.0)
+
 	acidity_changed.emit(acidity)
-	
+
 	if acidity >= max_acidity:
 		overdosed.emit()
 
@@ -103,6 +110,22 @@ func reset(game_seed: int) -> void:
 func _next_day_board() -> void:
 	var gen_params = WorldGenParams.new()
 	gen_params.master_seed = _game_seed ^ Util.hash_int(_day_counter)
+	match GlobalSettings.difficulty:
+		GlobalSettings.Difficulty.EASY:
+			gen_params.goblin_threshold = 0.00015
+			gen_params.min_enemy_distance = 12
+			gen_params.safe_zone_radius = 48
+			acidity_decay_rate = 0.05
+		GlobalSettings.Difficulty.MEDIUM:
+			gen_params.goblin_threshold = 0.0003
+			gen_params.min_enemy_distance = 8
+			gen_params.safe_zone_radius = 32
+			acidity_decay_rate = 0.03
+		GlobalSettings.Difficulty.HARD:
+			gen_params.goblin_threshold = 0.0005
+			gen_params.min_enemy_distance = 0
+			gen_params.safe_zone_radius = 0
+			acidity_decay_rate = 0.02
 	_board = Board.new()
 	_board.gen_params = gen_params
 
@@ -110,6 +133,9 @@ func next_day() -> void:
 	_day_counter += 1
 	# Prepare the game state for the next day here.
 	_next_day_board()
+	# Easy mode: acidity reduction on day change
+	if GlobalSettings.difficulty == GlobalSettings.Difficulty.EASY:
+		apply_acidity(-15.0)
 
 func hard_reset():
 	speed = 1.0
@@ -119,6 +145,7 @@ func hard_reset():
 	points = 0
 	attack_speed = 1.0
 	acidity = 0;
+	acidity_decay_rate = 0.0
 	acidity_changed.emit(acidity)
 	stamina = 100.0
 	max_stamina = 100.0

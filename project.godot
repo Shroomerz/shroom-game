@@ -15,7 +15,7 @@ run/main_scene="res://Levels/UI/UI.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/image="uid://bubjw1yoqfwga"
-config/icon="res://assets/icon.svg"
+config/icon="res://assets/icon.png"
 boot_splash/minimum_display_time=1200
 
 [autoload]

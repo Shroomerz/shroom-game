@@ -1,10 +1,13 @@
 extends Node
 
+enum Difficulty { EASY, MEDIUM, HARD }
+
 var res_index
 var fullscreen
 var borderless
 var volume
 var darkmode
+var difficulty: int = Difficulty.MEDIUM
 
 var resolutions = [
 	Vector2i(1280, 720),
@@ -49,6 +52,8 @@ func load_settings():
 		
 		#load theme
 		darkmode = config.get_value("theme", "dark", true)
+		# load difficulty
+		difficulty = config.get_value("gameplay", "difficulty", Difficulty.MEDIUM)
 	else:
 		#else load default values
 		res_index = 2
@@ -56,6 +61,7 @@ func load_settings():
 		borderless = false
 		volume = 0.5
 		darkmode = true
+		difficulty = Difficulty.MEDIUM
 
 
 func apply_settings():	
@@ -93,6 +99,7 @@ func apply_settings():
 	config.set_value("graphics", "borderless", borderless)
 	config.set_value("audio", "master_volume", volume)
 	config.set_value("theme", "dark", darkmode)
+	config.set_value("gameplay", "difficulty", difficulty)
 	config.save("user://settings.cfg")
 	
 	print("Settings applied and saved.")

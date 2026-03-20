@@ -25,11 +25,12 @@ This project was developed as part of the Software Engineering course at Jagiell
 
 - **Procedurally generated world** - biomes, mushrooms, enemies and terrain generated using Simplex noise and chunk-based streaming
 - **Mycology & alchemy** - collect mushrooms with unique procedurally generated properties, brew potions that affect your stats (speed, damage, health, attack speed)
-- **Combat system** - fight goblins with melee attacks, state machine-driven AI
-- **Stamina system** - sprint (Shift) drains stamina slowly, attacks drain it in chunks, regenerates while resting
-- **Procedural ambient audio** - wind, drones, birdsong and crickets generated in real-time, fading during combat
+- **Combat system** - fight goblins with melee attacks, state machine-driven AI, stamina-based attack system
+- **Acidity system** - consuming mushrooms raises acidity; at 100 you overdose. Acidity decays passively over time, and some rare mushrooms can lower it
+- **Three difficulty levels** - Easy (fewer enemies, safe zone, acidity reduction on day change), Medium (balanced), Hard (original chaos)
+- **Procedural ambient audio** - wind, drones, birdsong and crickets generated in real-time; gentle ambient persists during menus
 - **Save/Load** - 3 save slots accessible from the pause menu
-- **Settings** - resolution, fullscreen, borderless, volume, dark mode
+- **Settings** - resolution, fullscreen, borderless, volume, dark mode, difficulty
 
 ## 🎮 Controls
 

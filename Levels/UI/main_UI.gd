@@ -23,6 +23,7 @@ extends Control
 @onready var border_check = $Settings/MarginContainer/VBox/BorderPanel/MarginContainer/BorderCheck
 @onready var volume_slider = $Settings/MarginContainer/VBox/VolPanel/MarginContainer/SoundSlide
 @onready var darkmode_check = $Settings/MarginContainer/VBox/DarkPanel/MarginContainer/DarkCheck
+@onready var difficulty_option = $Settings/MarginContainer/VBox/DifficultyPanel/MarginContainer/DifficultyOption
 @onready var apply_button = $Settings/MarginContainer/VBox/HBoxContainer/MarginContainer/Apply
 #settings exit nodes
 @onready var exit_settings = $exit_settings_confirm
@@ -80,7 +81,9 @@ func _ready():
 	game_button.grab_focus()
 	for res in resolutions:
 		resolution_option.add_item("%dx%d" % [res.x, res.y])
-		
+	difficulty_option.add_item("Easy")
+	difficulty_option.add_item("Medium")
+	difficulty_option.add_item("Hard")
 	load_settings()
 	last_volume_value = volume_slider.value
 	#toggleWorldPause()
@@ -253,6 +256,8 @@ func load_settings():
 	volume_slider.value = GlobalSettings.volume
 	#Load theme
 	darkmode_check.button_pressed = GlobalSettings.darkmode
+	# Load difficulty
+	difficulty_option.select(GlobalSettings.difficulty)
 	changes = false
 	
 #########################################################################
@@ -279,6 +284,10 @@ func _on_sound_slide_changed() -> void:
 	changes = true
 
 
+func _on_difficulty_option_item_selected(_index: int) -> void:
+	changes = true
+
+
 func _on_apply_pressed():
 	#update parameters of settings
 	GlobalSettings.res_index = resolution_option.get_selected()
@@ -286,6 +295,7 @@ func _on_apply_pressed():
 	GlobalSettings.borderless = border_check.button_pressed
 	GlobalSettings.volume = volume_slider.value
 	GlobalSettings.darkmode = darkmode_check.button_pressed
+	GlobalSettings.difficulty = difficulty_option.get_selected()
 	#apply parameters
 	GlobalSettings.apply_settings()
 	changes = false

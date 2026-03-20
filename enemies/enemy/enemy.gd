@@ -43,7 +43,7 @@ func take_damage(damage: int) -> void:
 	invulnerable = true;
 	invulnerable_time = 0.1;
 	health -= damage
-	if health < 0:
+	if health <= 0:
 		die()
 		
 func die():

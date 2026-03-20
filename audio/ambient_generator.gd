@@ -19,7 +19,6 @@ var _lfo_phase := 0.0
 var _rng := RandomNumberGenerator.new()
 var _volume_target := 1.0
 var _volume_current := 0.0
-var _combat_check_timer := 0.0
 var _initialized := false
 
 var _chord_timer: float = randf_range(5.0, 15.0)  # espera inicial aleatoria
@@ -43,6 +42,7 @@ func _ready() -> void:
 	_player.stream = stream
 	_player.bus = "Master"
 	_player.volume_db = -8.0
+	_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(_player)
 	_player.play()
 	_playback = _player.get_stream_playback()
@@ -58,13 +58,15 @@ func _process(delta: float) -> void:
 	if not _initialized:
 		return
 
-	_combat_check_timer -= delta
-	if _combat_check_timer <= 0:
-		_combat_check_timer = 0.5
-		_volume_target = 1.0 if _is_peaceful() else 0.0
+	if _player.stream_paused:
+		_player.stream_paused = false
+
+	if get_tree().paused:
+		_volume_target = 0.25
+	else:
+		_volume_target = 1.0
 
 	_volume_current = move_toward(_volume_current, _volume_target, delta * 2.0)
-	_player.volume_db = lerp(-60.0, -8.0, _volume_current)
 
 	_fill_buffer(delta)
 
@@ -170,17 +172,6 @@ func _fill_buffer(_delta: float) -> void:
 					_chord_phases[v] = _rng.randf()   # fase aleatoria evita clic
 		# ── Fin capa de acordes ───────────────────────────────────────────────
 
-		sample = clampf(sample, -1.0, 1.0)
+		sample = clampf(sample * _volume_current, -1.0, 1.0)
 		_playback.push_frame(Vector2(sample, sample))
 
-func _is_peaceful() -> bool:
-	if not is_instance_valid(get_tree()):
-		return true
-	var enemies := get_tree().get_nodes_in_group("enemies")
-	if enemies.is_empty():
-		return true
-	var player_pos := GameState.get_player_pos()
-	for enemy in enemies:
-		if is_instance_valid(enemy) and enemy.global_position.distance_to(player_pos) < 300.0:
-			return false
-	return true
