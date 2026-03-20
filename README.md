@@ -4,12 +4,12 @@ A mystical arcade game centered around exploration, alchemy, and the magical pro
 
 ## 📥 Download
 
-**[Latest release (v1.0.0)](https://github.com/Shroomerz/shroom-game/releases/latest)** - ready-to-play builds for Linux and Windows.
+**[Latest release (v1.1.0)](https://github.com/Shroomerz/shroom-game/releases/latest)** - ready-to-play builds for Linux and Windows.
 
 | Platform | Download |
 |----------|----------|
-| 🐧 Linux (x86_64) | [ShroomGame-Linux-x86_64.zip](https://github.com/Shroomerz/shroom-game/releases/latest/download/ShroomGame-Linux-x86_64.zip) |
-| 🪟 Windows (x86_64) | [ShroomGame-Windows-x86_64.zip](https://github.com/Shroomerz/shroom-game/releases/latest/download/ShroomGame-Windows-x86_64.zip) |
+| 🐧 Linux (x86_64) | [shroom-linux-x86_64.zip](https://github.com/Shroomerz/shroom-game/releases/latest/download/shroom-linux-x86_64.zip) |
+| 🪟 Windows (x86_64) | [shroom-windows-x86_64.zip](https://github.com/Shroomerz/shroom-game/releases/latest/download/shroom-windows-x86_64.zip) |
 
 Also available on [itch.io](https://shroomerzzz.itch.io/shroomer-adventure-2025).
 
